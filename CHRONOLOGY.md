@@ -9,3 +9,5 @@
 | 2026-03-22 | Phase 3 | Basic Agency | agent_simple.py successfully created wavelength.py using JSON signaling. |
 | 2026-03-22 | Phase 3 | Autonomous Loop | agent_multitool.py completed a create-run-verify cycle autonomously. |
 | 2026-03-22 | Phase 4 | Hardware Bridge | nexus_hardware_server.py exposed 3080 Ti metrics via the MCP standard. |
+| 2026-03-22 | Phase 5 | Orchestration | nexus_orchestrator.py established multi-agent peer-review loops. |
+| 2026-03-22 | Phase 5 | Knowledge Base | TROUBLESHOOTING_AI.md created to codify common AI failure modes. |
