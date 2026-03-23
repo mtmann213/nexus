@@ -11,3 +11,4 @@
 | 2026-03-22 | Phase 4 | Hardware Bridge | nexus_hardware_server.py exposed 3080 Ti metrics via the MCP standard. |
 | 2026-03-22 | Phase 5 | Orchestration | nexus_orchestrator.py established multi-agent peer-review loops. |
 | 2026-03-22 | Phase 5 | Knowledge Base | TROUBLESHOOTING_AI.md created to codify common AI failure modes. |
+| 2026-03-22 | Phase 7 | Research | Identified 'Skills' as the next evolution in agentic strategy. |
