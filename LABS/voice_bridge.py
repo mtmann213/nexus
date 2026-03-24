@@ -4,7 +4,7 @@ from config import client
 
 # Phase 8: Tiered Inference
 # We use the 0.8B model for instant voice response.
-VOICE_MODEL = "qwen/qwen3.5-0.8b"
+VOICE_MODEL = "qwen3.5-0.8b"
 
 def capture_audio():
     """Simulates Speech-to-Text (STT)."""
