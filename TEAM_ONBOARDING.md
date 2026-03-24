@@ -5,24 +5,21 @@ Welcome to the team! This guide will help you set up your local "AI Command Cent
 
 ---
 
-### 1. The "Engine Room" (Local Inference)
-Since you are on **Native Linux**, you have the best performance bridge to your P2000 GPU.
+### 1. The "Engine Room" (Inference Options)
 
-1.  **Verify GPU Drivers:** 
-    - Open a terminal and run `nvidia-smi`.
-    - If you don't see your P2000 listed, install drivers: `sudo ubuntu-drivers install`.
-2.  **Install LM Studio (Linux):** 
-    - Download the **AppImage** from [lmstudio.ai](https://lmstudio.ai/).
-    - Make it executable: `chmod +x LM_Studio-x.x.x.AppImage`.
-    - Run it: `./LM_Studio-x.x.x.AppImage`.
-3.  **Download a Model:** 
-    - Search for `Llama-3.1-8B-Instruct-GGUF`. 
-    - Select a **Q4_K_M** or **Q5_K_M** version.
-4.  **Start the Server:**
-    - Go to the **AI Server** tab (double arrows).
-    - Toggle **"Hardware Acceleration"** to "On" (ensure it detects your P2000).
-    - Click **"Start Server"**.
-    - Your local API will be at: `http://localhost:1234/v1`.
+#### Option A: Local (Recommended for 8GB+ VRAM)
+If you have an NVIDIA GPU (P2000 or better):
+1.  **Install LM Studio (Linux):** Download the AppImage from [lmstudio.ai](https://lmstudio.ai/).
+2.  **Model:** Llama-3.1-8B-Instruct (Q4_K_M).
+3.  **Endpoint:** `http://localhost:1234/v1`.
+
+#### Option B: The Cloud Bridge (For Low-Power Laptops)
+If you do NOT have a dedicated GPU, you can use a high-speed cloud provider. This is free/low-cost and uses the same code:
+1.  **Sign up for Groq:** Go to [console.groq.com](https://console.groq.com/) and get an API Key.
+2.  **Update your Labs:** In your `.py` files, change:
+    - `BASE_URL = "https://api.groq.com/openai/v1"`
+    - `api_key = "YOUR_GROQ_API_KEY"`
+    - `MODEL = "llama-3.1-8b-instant"`
 
 ---
 
