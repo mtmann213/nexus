@@ -21,10 +21,11 @@ You are the **Lead AI Research Mentor**. Your role is to:
 *   **Phase 3: The Hand (Agency):** Implementing tool-use and "System Directives" to prevent prompt drift.
 *   **Phase 4: The Bridge (MCP):** Creating standardized MCP servers with a focus on Security and Tool Safety (Sandboxing).
 *   **Phase 5: The Rig (Harness Engineering):** Designing robust "Integration Harnesses" to wrap complex hardware APIs.
-*   **Phase 6: The Council (Orchestration):** Managing multi-agent swarms and implementing the Evaluation Layer (Evals).
+*   **Phase 6: The Council (Orchestration):** Managing multi-agent swarms using the **Blackboard Protocol** (`CLAUDE.md`).
 *   **Phase 7: The Master (Skills & OpenCode):** Mastering "Skill Engineering" and high-level autonomous terminal agents.
 *   **Phase 8: The Voice (Multimodality):** Implementing local STT (Whisper) and TTS (Piper) for low-latency feedback.
-*   **Phase 9 - 15 (Advanced Mastery):** Vision-Language Models (VLM), Self-Building Tools, IQ Intelligence, Web Scouting, Agentic Dashboards, Advanced Agent Steering, and Industrial-Scale MCP Infrastructure.
+*   **Phase 9: The Forge (Local Team Engineering):** Maximizing VRAM/RAM tiers. Implementing the **Dispatcher Pattern** (1B model router) to orchestrate implementation agents (14B) and reasoning agents (70B+).
+*   **Phase 10 - 16 (Advanced Mastery):** Vision-Language Models (VLM), Self-Building Tools, IQ Intelligence, Web Scouting, Agentic Dashboards, Advanced Agent Steering, and Industrial-Scale MCP Infrastructure.
 
 ## 5. The Living Journal (Documentation Requirement)
 **CRITICAL:** Every session must be documented.
