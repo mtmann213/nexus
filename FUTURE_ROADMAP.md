@@ -1,5 +1,5 @@
 # Project Nexus: Future Roadmap
-## Advanced Mastery (Phases 9-13)
+## Advanced Mastery (Phases 9-15)
 
 ### Phase 9: The Eye (Vision-Language Models)
 - **Objective:** Master VLMs to analyze RF diagrams and GNU Radio flowgraphs.
@@ -20,3 +20,11 @@
 ### Phase 13: The Dashboard (Agentic UI)
 - **Objective:** Move from CLI to a visual "Command Center" dashboard.
 - **Key Tech:** Streamlit, WebSockets, React.
+
+### Phase 14: The Architect (Advanced Agent Engineering)
+- **Objective:** Master agent steering, Chain-of-Verification (CoVe), and self-consistency loops.
+- **Key Tech:** Structured Reasoning, PydanticAI, Logic Evals.
+
+### Phase 15: The Infrastructure (Advanced MCP)
+- **Objective:** Build industrial-grade MCP toolchains with SSE (Server-Sent Events) and complex resource management.
+- **Key Tech:** MCP SSE, Remote Tool Execution, Industrial Security Sandboxing.

@@ -1,7 +1,7 @@
 # Project Nexus: Resume Session
 
 ## 📍 Current State
-Project Nexus has successfully completed **Phase 1 through Phase 7** of the curriculum. The infrastructure is fully documented, the labs are consolidated, and the repository is synchronized with GitHub.
+Project Nexus has successfully completed **Phase 1 through Phase 7** of the curriculum. The infrastructure is fully documented, the labs are consolidated, and the repository is synchronized with GitHub. The roadmap has been expanded to **15 phases** to cover advanced orchestration and industrial MCP.
 
 ## 🏗️ Technical Architecture
 - **Inference:** Local (LM Studio / 35B Qwen) or Cloud (Groq) via `LABS/config.py`.
@@ -18,12 +18,12 @@ Project Nexus has successfully completed **Phase 1 through Phase 7** of the curr
 5.  **Harness Engineering:** Developed a reflexive self-correction rig for complex math.
 6.  **Multi-Agent Orchestration:** Established Architect/Reviewer peer-review loops.
 7.  **Skill Engineering:** Integrated Simon Willison's "Skills" concept and OpenCode.
-8.  **Curriculum Overhaul:** Standardized 8 lesson plans and organized the workspace.
+8.  **Curriculum Overhaul:** Standardized 8 lesson plans and organized the workspace into 15 logical phases.
 
 ## ⏭️ Next Steps
 - **Phase 8: The Voice:** Implement local Speech-to-Text (Whisper) and Text-to-Speech (Piper).
-- **Physical Integration:** Build an MCP server specifically for **USRP N210** hardware control or **GNU Radio** flowgraphs.
-- **Team Deployment:** Distribute `TEAM_ONBOARDING.md` to the team.
+- **Advanced Series (9-15):** Start Phase 9 (Vision) or the newly added Phase 14 (Advanced Agent Training).
+- **Physical Integration:** Build an MCP server specifically for **USRP N210** hardware control.
 
 ## 🛠️ Maintenance Commands
 - **Push Changes:** `git push`
