@@ -1,19 +1,16 @@
 import chromadb
-from openai import OpenAI
+from config import client, EMBED_MODEL
 import os
-
-# 1. Setup our "Engine" (Inference/Embeddings)
-BASE_URL = "http://172.18.176.1:1234/v1"
-client = OpenAI(base_url=BASE_URL, api_key="lm-studio")
 
 def get_embedding(text):
     """Generates a 768-dimensional vector for the given text."""
-    response = client.embeddings.create(input=[text], model="text-embedding-nomic-embed-text-v1.5")
+    response = client.embeddings.create(input=[text], model=EMBED_MODEL)
     return response.data[0].embedding
 
 # 2. Setup our "Library" (Vector DB)
 # PersistentClient ensures the data is saved in the 'nexus_db' folder
-db_client = chromadb.PersistentClient(path="./nexus_db")
+# Note: nexus_db is kept in the root for easier discovery
+db_client = chromadb.PersistentClient(path="../nexus_db")
 collection = db_client.get_or_create_collection(name="rf_knowledge")
 
 def add_to_library(text, metadata_id):
@@ -46,7 +43,6 @@ if __name__ == "__main__":
         print(f"📚 Library already contains {collection.count()} memories.")
 
     # MISSION: Search for a concept, not a word.
-    # We use 'graphics card' (GPU) and 'radio simulations'.
     my_search = "How do I run radio simulations on my graphics card?"
     
     match = query_library(my_search)

@@ -36,7 +36,7 @@ async def handle_call_tool(
             mem_used, mem_total, util = result.split(',')
             
             status_report = (
-                f"🚀 RTX 3080 Ti Status:\n"
+                f"🚀 Hardware Status:\n"
                 f"📊 VRAM Usage: {mem_used}MB / {mem_total}MB\n"
                 f"🔥 GPU Utilization: {util}%"
             )

@@ -5,7 +5,7 @@ from mcp.client.stdio import stdio_client
 # 1. Setup the Server Parameters
 # We tell the client how to 'start' our local hardware server
 server_params = StdioServerParameters(
-    command="./venv/bin/python",
+    command="../venv/bin/python",
     args=["nexus_hardware_server.py"],
 )
 

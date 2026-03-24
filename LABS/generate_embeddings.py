@@ -1,11 +1,5 @@
 import numpy as np
-from openai import OpenAI
-
-# Configuration (Note: Using your host IP from Phase 1)
-BASE_URL = "http://172.18.176.1:1234/v1"
-EMBED_MODEL = "text-embedding-nomic-embed-text-v1.5"
-
-client = OpenAI(base_url=BASE_URL, api_key="lm-studio")
+from config import client, EMBED_MODEL
 
 def get_embedding(text):
     """Turns text into a high-dimensional vector."""
@@ -34,13 +28,3 @@ if __name__ == "__main__":
     print(f"✅ Vector 1 Length (Dimensions): {len(vec1)}")
     print(f"📊 Similarity (S1 vs S2 - RF to RF): {cosine_similarity(vec1, vec2):.4f}")
     print(f"📊 Similarity (S1 vs S3 - RF to Pizza): {cosine_similarity(vec1, vec3):.4f}")
-
-"""
-Why this works:
-1. Vectors: Each sentence becomes a list of numbers representing 'features'. 
-2. Dot Product: This is the mathematical 'overlap' between two vectors.
-3. Cosine Similarity: A score from 0 to 1. 
-   - 1.0 = Identical meaning.
-   - > 0.8 = Very similar (The 'Librarian' would show you this result).
-   - < 0.5 = Unrelated (The 'Librarian' would ignore this).
-"""

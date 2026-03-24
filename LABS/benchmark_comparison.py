@@ -1,13 +1,9 @@
 import time
 import os
+from config import client as local_client, MODEL_NAME as LOCAL_MODEL
 from openai import OpenAI
 
-# 1. LOCAL CONFIGURATION
-LOCAL_URL = "http://172.18.176.1:1234/v1"
-LOCAL_MODEL = "qwen/qwen3.5-35b-a3b"
-
 # 2. GROQ CONFIGURATION
-# To run the cloud test, set your GROQ_API_KEY environment variable
 GROQ_URL = "https://api.groq.com/openai/v1"
 GROQ_MODEL = "llama-3.1-8b-instant"
 GROQ_KEY = os.environ.get("GROQ_API_KEY", "MISSING")
@@ -33,15 +29,14 @@ def run_test(name, client, model, prompt):
 if __name__ == "__main__":
     prompt = "Explain the difference between a matched filter and an equalizer in digital signal processing."
     
-    # Setup Clients
-    local_client = OpenAI(base_url=LOCAL_URL, api_key="lm-studio")
+    # Setup Groq Client
     groq_client = OpenAI(base_url=GROQ_URL, api_key=GROQ_KEY)
 
     print("🏁 STARTING THE PROJECT NEXUS DRAG RACE 🏁")
     print("-" * 40)
 
-    # Run Local
-    local_speed = run_test("LOCAL (3080 Ti)", local_client, LOCAL_MODEL, prompt)
+    # Run Local (Using import from config)
+    local_speed = run_test("LOCAL Hardware", local_client, LOCAL_MODEL, prompt)
 
     # Run Groq
     groq_speed = 0
@@ -55,6 +50,6 @@ if __name__ == "__main__":
         print("\n" + "=" * 40)
         print("📊 THE FINAL VERDICT:")
         ratio = groq_speed / local_speed
-        print(f"🏎️  Groq is {ratio:.1f}x faster than your 3080 Ti.")
+        print(f"🏎️  Groq is {ratio:.1f}x faster than your Local setup.")
         print("💡 TIP: Use Local for privacy/dev, use Groq for mass-evals!")
         print("=" * 40)

@@ -1,16 +1,11 @@
-from openai import OpenAI
+from config import client, MODEL_NAME
 import os
 
-# Configuration
-BASE_URL = "http://172.18.176.1:1234/v1"
-client = OpenAI(base_url=BASE_URL, api_key="lm-studio")
-MODEL = "qwen/qwen3.5-35b-a3b"
-
-def get_agent_response(messages, max_tokens=1000, temperature=0.3):
+def get_agent_response(messages, max_tokens=1500, temperature=0.3):
     """Sends a properly formatted message list to the AI and handles errors."""
     try:
         response = client.chat.completions.create(
-            model=MODEL,
+            model=MODEL_NAME,
             messages=messages,
             temperature=temperature,
             max_tokens=max_tokens

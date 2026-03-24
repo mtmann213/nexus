@@ -1,12 +1,7 @@
 import json
 import subprocess
-from openai import OpenAI
+from config import client, MODEL_NAME
 import os
-
-# Configuration
-BASE_URL = "http://172.18.176.1:1234/v1"
-client = OpenAI(base_url=BASE_URL, api_key="lm-studio")
-MODEL = "qwen/qwen3.5-35b-a3b"
 
 def create_file(filename, content):
     with open(filename, "w") as f:
@@ -44,7 +39,7 @@ def run_agent_loop(user_prompt):
 
     for i in range(5): # Limit to 5 turns to prevent infinite loops
         response = client.chat.completions.create(
-            model=MODEL,
+            model=MODEL_NAME,
             messages=messages,
             temperature=0
         )
