@@ -85,7 +85,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-slate-800/50 p-4 rounded-lg">
                         <span class="text-sky-400 font-bold block mb-1">Interfaces:</span>
-                        <p class="text-sm">Gemini CLI / OpenCode / Aider</p>
+                        <p class="text-sm">OpenCode (Tactical) / Gemini CLI (Mentor)</p>
                     </div>
             <div class="bg-slate-800/50 p-4 rounded-lg">
                         <span class="text-sky-400 font-bold block mb-1">Backend Inference:</span>
@@ -149,51 +149,42 @@
 
         <!-- PHASE 1 -->
         <section id="phase1" class="card">
-            <h2 class="text-3xl mb-2">Phase 1: The Foundation</h2>
-            <p class="text-sky-400 italic mb-8">Subject: Inference, Tokens, and the Physical Layer of AI</p>
+            <h2 class="text-3xl mb-2 text-white font-bold">Phase 1: The Foundation</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Inference, Tokens, and the Interface Handshake</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                     <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
                     <ul class="objective-list space-y-2 text-sm text-slate-300">
                         <li>Define a "Token" and relate it to RF sampling.</li>
-                        <li>Measure model throughput using Tokens Per Second (t/s).</li>
-                        <li>Analyze the Latency-Weight Tradeoff (Local vs Cloud).</li>
+                        <li>Initialize **OpenCode** to establish a terminal-based AI workspace.</li>
+                        <li>Measure local 3080 Ti throughput using Tokens Per Second (t/s).</li>
                     </ul>
                 </div>
                 <div class="success-box">
                     <h3 class="text-xl text-green-400 mb-2">✅ Success Criteria</h3>
-                    <p class="text-sm">`benchmark_inference.py` reports > 10 t/s on your specific hardware.</p>
+                    <p class="text-sm">Successful chat handshake in OpenCode terminal + Baseline benchmark > 10 t/s.</p>
                 </div>
             </div>
 
             <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
             <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Tokens:</span> AI text is sampled into tokens. A 1,000-token prompt is a 1,000-sample buffer. <span class="rf-analogy">(Analogy: IQ Samples)</span></p>
+                <p><span class="font-bold text-white">The Interface (OpenCode):</span> Before building agents, we need a cockpit. OpenCode is a terminal interface that gives your local model permission to read/write files and execute shell commands.</p>
                 <p><span class="font-bold text-white">Context Window:</span> The observation buffer size. If too small, coherence is lost. <span class="rf-analogy">(Analogy: FFT Window Size)</span></p>
-                <p><span class="font-bold text-white">Throughput:</span> Baseline of ~19 t/s established for 35B model. <span class="rf-analogy">(Analogy: Baud Rate)</span></p>
             </div>
 
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
             <table class="glossary-table">
                 <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
                 <tr><td>Token</td><td>Atomic unit of language processing.</td><td>IQ Sample</td></tr>
-                <tr><td>Context Window</td><td>The observation buffer size.</td><td>FFT Window Size</td></tr>
+                <tr><td>OpenCode</td><td>Terminal-native AI cockpit for autonomous coding.</td><td>Control Console</td></tr>
                 <tr><td>Quantization</td><td>Weight bit-depth reduction (e.g., 16-bit to 4-bit).</td><td>Bit-Depth reduction</td></tr>
-                <tr><td>Frontier Model</td><td>State-of-the-art cloud models.</td><td>Lab-Grade Equipment</td></tr>
             </table>
 
-            <h3 class="text-xl mt-10 mb-4 underline">❓ Comprehension Questions</h3>
-            <ul class="question-list text-sm">
-                <li>Why does a 35B model run faster on a GPU than on a CPU?</li>
-                <li>What happens to the AI's "memory" when the conversation exceeds the Context Window?</li>
-                <li>When should you choose a Cloud model over your local 35B model?</li>
-            </ul>
-
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
-                <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/benchmark_inference.py</h4>
-                <p class="text-sm text-slate-400 mb-4">What to expect: Real-time throughput metrics connecting your 3080 Ti to LM Studio.</p>
-                <pre>Prompt: "Write a Python script to benchmark a local LM Studio inference server. Calculate t/s by dividing tokens by time."</pre>
+                <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/benchmark_inference.py & OpenCode Init</h4>
+                <p class="text-sm text-slate-400 mb-4">What to expect: Initializing the terminal agent and verifying the 3080 Ti speed baseline.</p>
+                <pre>Prompt: "Run 'opencode /init' to point to your LM Studio URL. Then, run the benchmark script to confirm 20 t/s throughput."</pre>
             </div>
         </section>
 
@@ -217,32 +208,18 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Embeddings:</span> Turns text into a 768-dimensional signature. <span class="rf-analogy">(Analogy: Spectral Signature)</span></p>
-                <p><span class="font-bold text-white">Cosine Similarity:</span> Measuring the angle between vectors. <span class="rf-analogy">(Analogy: Correlation Coefficient)</span></p>
-                <p><span class="font-bold text-white">Vector DB:</span> A spatial map of a library. Instead of a barcode, you search for a "region" of meaning.</p>
-            </div>
-
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
             <table class="glossary-table">
                 <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
                 <tr><td>Embedding</td><td>High-dimensional vector of meaning.</td><td>Spectral Signature</td></tr>
                 <tr><td>Cosine Similarity</td><td>Angular measure of relatedness (0 to 1).</td><td>Correlation Coefficient</td></tr>
                 <tr><td>Vector Database</td><td>Spatial index for semantic retrieval.</td><td>Spectrum Map</td></tr>
-                <tr><td>Distance Score</td><td>The length between vectors.</td><td>Path Loss</td></tr>
             </table>
-
-            <h3 class="text-xl mt-10 mb-4 underline">❓ Comprehension Questions</h3>
-            <ul class="question-list text-sm">
-                <li>How does an embedding allow an AI to find a paper about "Antennas" if the user only searched for "Radiating elements"?</li>
-                <li>What is the "Semantic Gap," and why is it important for building a reliable agent?</li>
-            </ul>
 
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/store_memories.py</h4>
-                <p class="text-sm text-slate-400 mb-4">What to expect: Creation of the `nexus_db` folder containing persistent AI memories.</p>
-                <pre>Prompt: "Create a Python script using chromadb to store RF facts. Query it with concepts, not keywords."</pre>
+                <p class="text-sm text-slate-400 mb-4">What to expect: Using OpenCode to help you write the logic for persistent AI memories.</p>
+                <pre>Prompt: "Use OpenCode to write a Python script that uses chromadb to store RF facts. Query it with concepts, not keywords."</pre>
             </div>
         </section>
 
@@ -266,27 +243,13 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Motor Cortex:</span> The AI generates a JSON command; your code performs the action. <span class="rf-analogy">(Analogy: Command Logic to USRP)</span></p>
-                <p><span class="font-bold text-white">Anchoring:</span> Keeping the AI focused using a fixed System Prompt. <span class="rf-analogy">(Analogy: Frequency Locking)</span></p>
-                <p><span class="font-bold text-white">Defensive Parsing:</span> Using string indexing to extract valid JSON from model "word salad."</p>
-            </div>
-
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
             <table class="glossary-table">
                 <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
                 <tr><td>Function Calling</td><td>AI triggering code via JSON.</td><td>Command Logic</td></tr>
                 <tr><td>System Directive</td><td>High-priority behavior instructions.</td><td>Firmware Hard-Coding</td></tr>
                 <tr><td>Anchoring</td><td>Preventing prompt drift.</td><td>Frequency Locking</td></tr>
-                <tr><td>Context Poisoning</td><td>Irrelevant data degrading reasoning.</td><td>Channel Noise</td></tr>
             </table>
-
-            <h3 class="text-xl mt-10 mb-4 underline">❓ Comprehension Questions</h3>
-            <ul class="question-list text-sm">
-                <li>What is the difference between a "User Message" and a "System Directive"?</li>
-                <li>How does "Anchoring" help an agent complete a 10-step task?</li>
-            </ul>
 
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/agent_multitool.py</h4>
@@ -315,28 +278,6 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Standardization:</span> Stop hard-wiring tools. Use MCP servers that "Publish" their capabilities. <span class="rf-analogy">(Analogy: VITA 49 Standard)</span></p>
-                <p><span class="font-bold text-white">Sandboxing:</span> Restricting AI access to safe folders. <span class="rf-analogy">(Analogy: Galvanic Isolation)</span></p>
-                <p><span class="font-bold text-white">JSON-RPC:</span> The packet protocol used for the Client-Server handshake.</p>
-            </div>
-
-            <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
-            <table class="glossary-table">
-                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
-                <tr><td>MCP</td><td>Model Context Protocol standard.</td><td>USB or VITA 49</td></tr>
-                <tr><td>Sandboxing</td><td>Isolated execution environment.</td><td>Faraday Cage</td></tr>
-                <tr><td>Prompt Injection</td><td>Hijacking AI behavior via input.</td><td>Signal Jamming</td></tr>
-                <tr><td>HITL</td><td>Human-in-the-Loop approval.</td><td>Manual Override</td></tr>
-            </table>
-
-            <h3 class="text-xl mt-10 mb-4 underline">❓ Comprehension Questions</h3>
-            <ul class="question-list text-sm">
-                <li>What is one risk of giving an AI direct access to your terminal?</li>
-                <li>How does "Sandboxing" protect your host operating system?</li>
-            </ul>
-
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/nexus_hardware_server.py</h4>
                 <pre>Prompt: "Write an MCP Server in Python that exposes nvidia-smi data as a standardized tool."</pre>
@@ -362,28 +303,6 @@
                     <p class="text-sm">`reflex_harness.py` catches a syntax or math error in its own first draft.</p>
                 </div>
             </div>
-
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Harnessing:</span> Building the "Test Rig" that holds the AI in place. <span class="rf-analogy">(Analogy: Dynamic Engine Dynamometer)</span></p>
-                <p><span class="font-bold text-white">Reflexive Reasoning:</span> Forcing the AI to critique its own work before presenting it. <span class="rf-analogy">(Analogy: Control System Feedback)</span></p>
-                <p><span class="font-bold text-white">Data Transduction:</span> Converting probabilistic thoughts into strict machine commands.</p>
-            </div>
-
-            <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
-            <table class="glossary-table">
-                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
-                <tr><td>Test Harness</td><td>Controlled execution environment.</td><td>Dynamic Test Rig</td></tr>
-                <tr><td>Integration Harness</td><td>Connects AI logic to APIs/Hardware.</td><td>Wiring Harness</td></tr>
-                <tr><td>Reflexive Reasoning</td><td>AI reviewing its own output.</td><td>Feedback Loop</td></tr>
-                <tr><td>Zero-Shot</td><td>Single-turn request without reflection.</td><td>Open-Loop System</td></tr>
-            </table>
-
-            <h3 class="text-xl mt-10 mb-4 underline">❓ Comprehension Questions</h3>
-            <ul class="question-list text-sm">
-                <li>Why is an LLM considered "stateless"?</li>
-                <li>How does a "Cognitive Harness" improve intelligence without retraining?</li>
-            </ul>
 
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/reflex_harness.py</h4>
@@ -411,21 +330,6 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
-            <table class="glossary-table">
-                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
-                <tr><td>Orchestration</td><td>Managing multiple AI agents.</td><td>ATE Controller</td></tr>
-                <tr><td>Blackboard Protocol</td><td>Shared file for state sync.</td><td>Shared Lab Notebook</td></tr>
-                <tr><td>Eval</td><td>Systematic performance measurement.</td><td>V&V Testing</td></tr>
-                <tr><td>Ground Truth</td><td>Correct answer for baseline.</td><td>Calibrated Reference</td></tr>
-            </table>
-
-            <h3 class="text-xl mt-10 mb-4 underline">❓ Comprehension Questions</h3>
-            <ul class="question-list text-sm">
-                <li>How does the Blackboard Protocol prevent "Context Drift" in a swarm?</li>
-                <li>In a multi-agent loop, why should the Critic have a lower temperature?</li>
-            </ul>
-
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/nexus_orchestrator.py</h4>
                 <pre>Prompt: "Build an orchestrator that manages an Architect and Reviewer persona, using AGENTS.md as the blackboard."</pre>
@@ -434,47 +338,39 @@
 
         <!-- PHASE 7 -->
         <section id="phase7" class="card">
-            <h2 class="text-3xl mb-2">Phase 7: The Master (Skills)</h2>
-            <p class="text-sky-400 italic mb-8">Subject: Skill Engineering and Autonomous Agents</p>
+            <h2 class="text-3xl mb-2 text-white font-bold">Phase 7: The Master</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Expert Skill Engineering and Playbooks</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                     <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
                     <ul class="objective-list space-y-2 text-sm text-slate-300">
-                        <li>Upgrade an AI's brain with runtime Procedural Manuals.</li>
-                        <li>Configure OpenCode for autonomous reasoning.</li>
-                        <li>Utilize Skill Libraries for specialized RF expertise.</li>
+                        <li>Upgrade AI reasoning using procedural Markdown manuals (Skills).</li>
+                        <li>Implement Skill Injection to give agents knowledge of internal libraries.</li>
+                        <li>Analyze Task Success Rates after skill-based brain upgrades.</li>
                     </ul>
                 </div>
                 <div class="success-box">
                     <h3 class="text-xl text-green-400 mb-2">✅ Success Criteria</h3>
-                    <p class="text-sm">Agent acknowledges high-level hardware constraints from a custom Skill MD.</p>
+                    <p class="text-sm">Agent successfully follows a multi-step debugging strategy defined in a custom Skill MD.</p>
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
-            <table class="glossary-table">
-                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
-                <tr><td>Skill</td><td>Markdown procedural manual for AI.</td><td>Technical Standard</td></tr>
-                <tr><td>OpenCode</td><td>Terminal-native autonomous agent.</td><td>Autonomous ATE Suite</td></tr>
-                <tr><td>Skill Injection</td><td>Loading skills at initialization.</td><td>Firmware Loading</td></tr>
-            </table>
-
-            <h3 class="text-xl mt-10 mb-4 underline">❓ Comprehension Questions</h3>
-            <ul class="question-list text-sm">
-                <li>How does an autonomous agent like OpenCode differ from a reactive assistant?</li>
-                <li>What is the benefit of keeping Skills in Markdown format?</li>
-            </ul>
+            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300 text-sm">
+                <p><span class="font-bold text-white">Skill Library:</span> Modular playbooks assigned to agents. (Example: Documentation Oracle, Architecture Visualizer).</p>
+                <p><span class="font-bold text-white">Skill Injection:</span> Bypassing the training cutoff by loading a manual into the context at runtime.</p>
+            </div>
 
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
-                <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: SKILLS/nexus-hardware.md</h4>
-                <pre>Prompt: "Write a Markdown 'Skill' defining the 12GB VRAM limits of an RTX 3080 Ti for an agent."</pre>
+                <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: SKILLS/nexus-hardware.md Refinement</h4>
+                <pre>Prompt: "Write an advanced Markdown 'Skill' document that provides a step-by-step strategy for debugging a 5G Sionna simulation."</pre>
             </div>
         </section>
 
         <!-- PHASE 8 -->
         <section id="phase8" class="card border-sky-500/50">
-            <h2 class="text-3xl mb-2 text-white">Phase 8: The Voice (Multimodality)</h2>
+            <h2 class="text-3xl mb-2 text-white font-bold">Phase 8: The Voice (Multimodality)</h2>
             <p class="text-sky-400 italic mb-8">Subject: STT, TTS, and Low-Latency Feedback</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -492,16 +388,8 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
-            <table class="glossary-table">
-                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
-                <tr><td>STT</td><td>Speech-to-Text conversion.</td><td>Audio Demodulation</td></tr>
-                <tr><td>TTS</td><td>Text-to-Speech synthesis.</td><td>Audio Modulation</td></tr>
-                <tr><td>RTT</td><td>Round-trip time of a voice transaction.</td><td>Propagation Delay</td></tr>
-            </table>
-
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
-                <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: (Planned) LABS/voice_bridge.py</h4>
+                <h4 class="text-sky-400 font-bold mb-4 text-white">🧪 Lab: (Planned) LABS/voice_bridge.py</h4>
                 <pre>Prompt: "Design a voice assistant using faster-whisper and piper-tts. Measure latency for each step."</pre>
             </div>
         </section>
@@ -514,11 +402,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                     <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
-                    <ul class="objective-list space-y-2 text-sm text-slate-300">
-                        <li>Design a Hybrid Architecture balancing VRAM and RAM.</li>
-                        <li>Implement the Dispatcher Pattern (1B model router).</li>
-                        <li>Automate commit quality with AI-driven Git Gates.</li>
-                    </ul>
+                    <li>Design a Hybrid Architecture balancing VRAM and RAM tiers.</li>
+                    <li>Implement the Dispatcher Pattern (1B model router).</li>
+                    <li>Automate commit quality with AI-driven Git Gates.</li>
                 </div>
                 <div class="success-box">
                     <h3 class="text-xl text-green-400 mb-2">✅ Success Criteria</h3>
@@ -526,17 +412,8 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
-            <table class="glossary-table">
-                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
-                <tr><td>Dispatcher</td><td>Lightweight model routing user intent.</td><td>Pre-Selector Filter</td></tr>
-                <tr><td>Partial Offload</td><td>Splitting model layers between GPU/CPU.</td><td>Hybrid Processing</td></tr>
-                <tr><td>Portability</td><td>Ability to switch AI services (Gemini/Claude).</td><td>Universal Interop</td></tr>
-            </table>
-
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/vanguard_manager.py</h4>
-                <p class="text-sm text-slate-400 mb-4">What to expect: A single terminal entry-point that routes complex math to RAM and fast code to VRAM.</p>
                 <pre>Prompt: "Build a manager that routes TACTICAL tasks to GPU and STRATEGIC tasks to high-parameter RAM models."</pre>
             </div>
         </section>
@@ -561,31 +438,15 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline text-white">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">The UX Link:</span> Move beyond raw text to a **Single Page Application (SPA)**. Open WebUI provides a desktop-class experience on a tablet.</p>
-                <p><span class="font-bold text-white">Control Plane:</span> Your 3080 Ti hosts the backend (LM Studio), while the UE (Tablet) hosts the visual signaling layer.</p>
-            </div>
-
-            <h3 class="text-xl mt-10 mb-4 underline text-white">📚 Glossary</h3>
-            <table class="glossary-table">
-                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
-                <tr><td>WUI</td><td>Web User Interface; the visual AI dashboard.</td><td>Graphic Spectrum Display</td></tr>
-                <tr><td>Docker</td><td>A modular container system for deploying WUIs.</td><td>Modular Sub-system</td></tr>
-                <tr><td>Local IP</td><td>Device address within the LAN.</td><td>Station ID</td></tr>
-                <tr><td>Tailscale</td><td>(Bonus) Encrypted secure remote tunnel.</td><td>Secure Microwave Link</td></tr>
-            </table>
-
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-4 text-white">🧪 Lab: LABS/deploy_portal.sh</h4>
-                <p class="text-sm text-slate-400 mb-4">What to expect: Automated deployment of an interactive web portal accessible via your tablet's browser.</p>
                 <pre>Prompt: "Write a bash script to deploy Open WebUI via Docker. Map port 3000 and connect it to the local LM Studio instance."</pre>
             </div>
         </section>
 
         <!-- ROADMAP -->
         <section id="roadmap" class="card border-yellow-500/30">
-            <h2 class="text-4xl text-yellow-500 mb-8 border-b border-yellow-500 pb-4">🚀 Advanced Mastery Roadmap (11-16)</h2>
+            <h2 class="text-4xl text-yellow-500 mb-8 border-b border-yellow-500 pb-4 text-white">🚀 Advanced Mastery Roadmap (11-16)</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
                 <div class="p-4 bg-slate-800/50 rounded">
                     <h4 class="text-yellow-500 font-bold underline mb-2">11. The Eye (Vision)</h4>
@@ -612,19 +473,19 @@
 
         <!-- RESUME -->
         <section id="resume" class="card">
-            <h2 class="text-4xl mb-8 border-b border-sky-500 pb-4 text-white">📍 Session Resume</h2>
+            <h2 class="text-4xl mb-8 border-b border-sky-500 pb-4 text-white font-bold">📍 Session Resume</h2>
             <div class="bg-slate-800/30 p-6 rounded-lg">
                 <p class="font-bold text-sky-400 mb-4 text-lg">Current State: Phase 1-10 Infrastructure Complete.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                     <ul class="list-disc ml-6 space-y-1 text-slate-400">
-                        <li><span class="text-white">Workspace:</span> Organized into `LABS/`, `CURRICULUM/`, and `SKILLS/`.</li>
-                        <li><span class="text-white">Configuration:</span> `LABS/config.py` provides Local/Cloud switch.</li>
-                        <li><span class="text-white">Documentation:</span> Full HTML Portal replacement for MD files.</li>
+                        <li><span class="text-white font-bold">Workspace:</span> Organized into `LABS/`, `CURRICULUM/`, and `SKILLS/`.</li>
+                        <li><span class="text-white font-bold">Configuration:</span> `LABS/config.py` provides Universal Switch.</li>
+                        <li><span class="text-white font-bold">Documentation:</span> Full HTML Portal replacement for MD files.</li>
                     </ul>
                     <ul class="list-disc ml-6 space-y-1 text-slate-400">
-                        <li><span class="text-white">Next Milestone:</span> Vision-Language Model integration (Phase 11).</li>
-                        <li><span class="text-white">Hardware Health:</span> 3080 Ti verified at 20 t/s throughput.</li>
-                        <li><span class="text-white">Neutrality:</span> Using `AGENTS.md` for portability.</li>
+                        <li><span class="text-white font-bold">New Interface:</span> OpenCode established as Phase 1 Foundation.</li>
+                        <li><span class="text-white font-bold">Hardware:</span> Tiered VRAM/RAM strategy operationalized.</li>
+                        <li><span class="text-white font-bold">Neutrality:</span> Using `AGENTS.md` for portability.</li>
                     </ul>
                 </div>
             </div>
