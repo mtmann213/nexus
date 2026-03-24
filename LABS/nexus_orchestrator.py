@@ -3,7 +3,8 @@ import os
 import re
 import time
 
-def get_agent_response(messages, max_tokens=1500, temperature=0.3):
+def get_agent_response(messages, max_tokens=4000, temperature=0.3):
+    """Sends a properly formatted message list and handles Reasoning Models."""
     try:
         response = client.chat.completions.create(
             model=MODEL_NAME,
@@ -11,8 +12,19 @@ def get_agent_response(messages, max_tokens=1500, temperature=0.3):
             temperature=temperature,
             max_tokens=max_tokens
         )
+        
+        # Check for standard content
         content = response.choices[0].message.content
+        
+        # Check for 'Thinking' content (for models like DeepSeek R1 or Qwen 3.5 Reasoning)
+        reasoning = getattr(response.choices[0].message, 'reasoning_content', None)
+        
+        if reasoning:
+            print(f"\n🧠 [Internal Monologue]:\n{reasoning[:300]}...")
+
         if not content or content.strip() == "":
+            if reasoning:
+                return f"⚠️ Model spent all tokens thinking. Summary of thoughts: {reasoning[:200]}"
             return None
         return content
     except Exception as e:
