@@ -87,9 +87,19 @@
                         <span class="text-sky-400 font-bold block mb-1">Interfaces:</span>
                         <p class="text-sm">Gemini CLI / OpenCode / Aider</p>
                     </div>
-                    <div class="bg-slate-800/50 p-4 rounded-lg">
+            <div class="bg-slate-800/50 p-4 rounded-lg">
                         <span class="text-sky-400 font-bold block mb-1">Backend Inference:</span>
-                        <p class="text-sm">LM Studio (Local 35B) / Groq Cloud</p>
+                        <p class="text-xs mb-2">Controlled via <code>LABS/config.py</code></p>
+                        <div class="space-y-2">
+                            <div class="p-2 bg-black/30 rounded">
+                                <span class="text-xs text-slate-500 uppercase">To use Local:</span>
+                                <code class="block text-xs text-green-400">unset GROQ_API_KEY</code>
+                            </div>
+                            <div class="p-2 bg-black/30 rounded">
+                                <span class="text-xs text-slate-500 uppercase">To use Groq:</span>
+                                <code class="block text-xs text-sky-400">export GROQ_API_KEY="your_key"</code>
+                            </div>
+                        </div>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-lg">
                         <span class="text-sky-400 font-bold block mb-1">Standardized Protocol:</span>
