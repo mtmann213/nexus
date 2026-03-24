@@ -370,27 +370,27 @@
 
         <!-- PHASE 8 -->
         <section id="phase8" class="card border-sky-500/50">
-            <h2 class="text-3xl mb-2 text-white font-bold">Phase 8: The Voice (Multimodality)</h2>
-            <p class="text-sky-400 italic mb-8">Subject: STT, TTS, and Low-Latency Feedback</p>
+            <h2 class="text-3xl mb-2 text-white font-bold">Phase 8: The Voice (Speech-to-Text)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: High-Speed Audio Capture and Transcription</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                     <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
                     <ul class="objective-list space-y-2 text-sm text-slate-300">
-                        <li>Differentiate STT (Demodulator) from TTS (Modulator).</li>
-                        <li>Measure Round-Trip Latency (RTT) in voice-AI links.</li>
-                        <li>Configure local Whisper and Piper engines.</li>
+                        <li>Implement a local audio capture link using `ffmpeg`.</li>
+                        <li>Utilize the **Whisper** model family for sub-second transcription.</li>
+                        <li>Optimize Voice-to-Prompt latency for instant interaction.</li>
                     </ul>
                 </div>
                 <div class="success-box border-sky-500">
                     <h3 class="text-xl text-sky-400 mb-2">✅ Success Criteria</h3>
-                    <p class="text-sm">User speaks a command and hears a hardware report in < 2.0s.</p>
+                    <p class="text-sm">Student transcribes a 5-second voice command in < 1.0s of processing time.</p>
                 </div>
             </div>
 
             <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
-                <h4 class="text-sky-400 font-bold mb-4 text-white">🧪 Lab: (Planned) LABS/voice_bridge.py</h4>
-                <pre>Prompt: "Design a voice assistant using faster-whisper and piper-tts. Measure latency for each step."</pre>
+                <h4 class="text-sky-400 font-bold mb-4 text-white">🧪 Lab: LABS/voice_to_text.py</h4>
+                <pre>Prompt: "Write a script that captures 5s of mic input and transcribes it on the CPU using Whisper-Tiny."</pre>
             </div>
         </section>
 
@@ -475,17 +475,17 @@
         <section id="resume" class="card">
             <h2 class="text-4xl mb-8 border-b border-sky-500 pb-4 text-white font-bold">📍 Session Resume</h2>
             <div class="bg-slate-800/30 p-6 rounded-lg">
-                <p class="font-bold text-sky-400 mb-4 text-lg">Current State: Phase 1-10 Infrastructure Complete.</p>
+                <p class="font-bold text-sky-400 mb-4 text-lg">Current State: Phase 1-8 Complete.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                     <ul class="list-disc ml-6 space-y-1 text-slate-400">
-                        <li><span class="text-white font-bold">Workspace:</span> Organized into `LABS/`, `CURRICULUM/`, and `SKILLS/`.</li>
-                        <li><span class="text-white font-bold">Configuration:</span> `LABS/config.py` provides Universal Switch.</li>
-                        <li><span class="text-white font-bold">Documentation:</span> Full HTML Portal replacement for MD files.</li>
+                        <li><span class="text-white font-bold">Workspace:</span> Cleaned and organized into `LABS/`.</li>
+                        <li><span class="text-white font-bold">Inference:</span> Tiered 35B/0.8B models operational.</li>
+                        <li><span class="text-white font-bold">STT:</span> Local Whisper engine established.</li>
                     </ul>
                     <ul class="list-disc ml-6 space-y-1 text-slate-400">
-                        <li><span class="text-white font-bold">New Interface:</span> OpenCode established as Phase 1 Foundation.</li>
-                        <li><span class="text-white font-bold">Hardware:</span> Tiered VRAM/RAM strategy operationalized.</li>
-                        <li><span class="text-white font-bold">Neutrality:</span> Using `AGENTS.md` for portability.</li>
+                        <li><span class="text-white font-bold">Interface:</span> Voice-to-Text bridge functional in WSL.</li>
+                        <li><span class="text-white font-bold">Blackboard:</span> Persistent state sync verified.</li>
+                        <li><span class="text-white font-bold">Efficiency:</span> 0.14s local transcription latency.</li>
                     </ul>
                 </div>
             </div>
