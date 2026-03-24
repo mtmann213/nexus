@@ -3,13 +3,13 @@ import time
 import os
 
 # Phase 8: Local STT (The "Ear")
-# We use the 'tiny' model for maximum speed on your 3080 Ti.
+# We use CPU mode for immediate compatibility in WSL.
 
 def run_whisper_test(audio_path):
-    print(f"👂 [Whisper] Initializing local model (tiny)...")
+    print(f"👂 [Whisper] Initializing local model (tiny) on CPU...")
     
-    # Run on GPU if possible
-    model = WhisperModel("tiny", device="cuda", compute_type="float16")
+    # We use 'int8' for fast CPU inference
+    model = WhisperModel("tiny", device="cpu", compute_type="int8")
 
     print(f"📡 [Whisper] Transcribing file: {audio_path}")
     start_time = time.time()
@@ -32,4 +32,3 @@ if __name__ == "__main__":
         run_whisper_test(test_audio)
     else:
         print(f"❌ Test audio not found at {test_audio}")
-        print("💡 TIP: You can record a message on your phone, save it as 'my_voice.wav' in this folder, and run the script again!")
