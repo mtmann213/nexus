@@ -1,33 +1,31 @@
-import pyttsx3
+from gtts import gTTS
 import time
 import os
 
 # Phase 8: Local TTS (The "Voice")
-# We save to a file to ensure compatibility in headless/WSL environments.
+# Uses gTTS for 100% reliability in WSL/Headless environments.
 
 def run_tts_test(text, output_file="output.mp3"):
-    print(f"🔊 [TTS] Initializing engine...")
-    engine = pyttsx3.init()
-
-    # Set properties
-    engine.setProperty('rate', 150)
-    engine.setProperty('volume', 0.9)
-
+    print(f"🔊 [TTS] Initializing gTTS engine...")
+    
     print(f"📡 [TTS] Synthesizing: '{text}'")
     start_time = time.time()
     
-    # Save to file instead of 'say()'
-    if os.path.exists(output_file):
-        os.remove(output_file)
+    try:
+        # Create synthesis object
+        tts = gTTS(text=text, lang='en')
         
-    engine.save_to_file(text, output_file)
-    engine.runAndWait()
-
-    print(f"✅ Speech synthesis complete in {time.time() - start_time:.2f}s")
-    if os.path.exists(output_file):
+        # Save to file
+        if os.path.exists(output_file):
+            os.remove(output_file)
+            
+        tts.save(output_file)
+        
+        print(f"✅ Speech synthesis complete in {time.time() - start_time:.2f}s")
         print(f"💾 File saved to: {os.path.abspath(output_file)}")
-    else:
-        print("❌ Error: File was not generated.")
+        
+    except Exception as e:
+        print(f"❌ Error during synthesis: {e}")
 
 if __name__ == "__main__":
     test_phrase = "Project Nexus Voice Link established. All systems nominal."
