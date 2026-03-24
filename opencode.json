@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (Local)",
+      "options": {
+        "baseURL": "http://172.18.176.1:1234/v1"
+      },
+      "models": {
+        "gemma-3-1b": { "name": "Gemma 3 1B" },
+        "qwen/qwen3-coder-next": { "name": "Qwen 3.5 9B" },
+        "phi-4": { "name": "Phi-4 14B" },
+        "qwen/qwen3.5-35b-a3b": { "name": "Qwen 3.5 35B" }
+      }
+    }
+  },
+  "agentDirectory": ".opencode/agent",
+  "defaultAgent": "dispatcher",
+  "autoRouting": true
+}
