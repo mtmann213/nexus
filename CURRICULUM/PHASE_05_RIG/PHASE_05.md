@@ -1,4 +1,4 @@
-# Phase 8: The Rig (Harness Engineering)
+# Phase 5: The Rig (Harness Engineering)
 ## Subject: Building Robust Infrastructural Wrappers for LLMs
 
 ### 🎯 Learning Objectives
@@ -53,5 +53,16 @@ Local inference on consumer hardware (like an RTX 3080 Ti) introduces a critical
 
 ---
 
-### 💡 Mentor's Suggestion for Future Phases:
-To make this curriculum world-class, we should include a **"Success Criteria"** section in each MD that defines a physical proof-of-work (e.g., "The terminal must output a 28GHz link budget with < 1% error").
+### 🧪 Lab Reference: `LABS/reflex_harness.py`
+
+#### What to expect:
+This script wraps your 35B model in a 3-step cognitive loop. You will see the agent generate an initial "Link Budget" script, find its own physics errors (like missing ITU-R rain models), and then rewrite the script to be significantly more robust. 
+* **Note:** This lab uses an extended **300-second timeout** to handle the heavy compute load of local inference.
+
+#### Generation Prompt (for the student):
+> "Implement a cognitive reflex harness in Python. The script should take a user prompt for a complex RF task, generate a first draft from an LLM, then send that draft back to the same LLM with a 'Strict Auditor' persona to find 3 potential bugs. Finally, the script should ask the LLM to provide a final, corrected version based on that audit. Use a 300.0 timeout in the OpenAI client to allow for local GPU processing time."
+
+---
+
+### ✅ Success Criteria
+* **Proof of Work:** `reflex_harness.py` successfully completes the full draft-critique-refine cycle and produces a final script that catches a syntax or physics error present in its own first draft.

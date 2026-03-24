@@ -41,3 +41,16 @@
 - Successfully implemented a 300s timeout to handle heavy RF math processing on the 3080 Ti.
 - **Milestone:** Proved that "Harness Engineering" can upgrade a model's intelligence without changing its weights.
 - **Final Status:** Project Nexus is fully documented and pushed to GitHub.
+
+## Session 7: 2026-03-22
+### Learning Focus: Curriculum Architecture & Structural Flow
+- **Concepts:** Latency-Weight Tradeoff (Local vs Cloud); System Directives (Anchoring); Tool Security (Sandboxing); Evaluation Layer (Evals).
+- **Architecture:** Reordered the 8-phase curriculum into a logical "Dependency-First" flow.
+- **Objective:** Finalize the educational framework for Project Nexus.
+
+### Daily Log
+- Performed a comprehensive audit of all 8 phases.
+- **Milestone:** Successfully re-mapped the learning path to prioritize "Harness Engineering" before "Orchestration."
+- **Injection:** Added Security and Sandboxing to Phase 4 to address the "Exploit Surface" of agentic tools.
+- **Integration:** Standardized the `CURRICULUM` directory with Lesson Plans, Glossaries, and Comprehension Questions for every phase.
+- **Final Roadmap Status:** 1-Foundation, 2-Librarian, 3-Hand, 4-Bridge, 5-Rig, 6-Council, 7-Master, 8-Voice.
