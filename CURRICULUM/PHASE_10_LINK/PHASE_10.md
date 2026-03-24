@@ -1,32 +1,32 @@
-# Phase 10: The Link (Local Network Access)
-## Subject: LAN Bridging and Mobile Device Integration
+# Phase 10: The Link (Local Web Portal)
+## Subject: Visual Interface Deployment and Mobile Interaction
 
 ### 🎯 Learning Objectives
 By the end of this phase, the trainee will be able to:
-1. **Bridge** the gap between the high-power Desktop "Base Station" and mobile "User Equipment" (Phone/Tablet) over the local network.
-2. **Configure** local firewalls (ufw/Windows Firewall) to allow traffic on specific AI ports (1234, 8080).
-3. **Optimize** LM Studio settings for "Serve on Local Network" visibility.
-4. **Deploy** a mobile-responsive web frontend (e.g., Open WebUI or a custom Streamlit app) accessible via local IP.
-5. **Implement** (Bonus) a secure remote tunnel using **Tailscale** for access outside the home network.
+1. **Deploy** a professional Web User Interface (WUI) such as **Open WebUI** or the **OpenCode Web Interface**.
+2. **Bridge** the Desktop "Base Station" to a mobile "User Equipment" (Phone/Tablet) with a fully interactive visual dashboard.
+3. **Configure** cross-origin resource sharing (CORS) and port visibility to allow the browser to control the 3080 Ti.
+4. **Manage** agentic "Thoughts" and "File Trees" via a touch-optimized mobile interface.
+5. **Implement** (Bonus) secure remote access via **Tailscale** to use the Web Portal outside the home network.
 
 ---
 
 ### 📖 Technical Deep Dive
 
-#### 1. The Base Station vs. User Equipment (LAN Topology)
-In RF, the Base Station handles the heavy signal processing, while the User Equipment (UE) provides the interface. 
-* **The Desktop:** Your 3080 Ti is the signal processor. It hosts the LLMs and the Blackboard (`AGENTS.md`).
-* **The UE:** Your phone or tablet acts as the "Remote Display." 
-* **The Link:** We use the local Wi-Fi network as our primary data link. This requires knowing your desktop's local IP (e.g., `192.168.1.50`).
+#### 1. The UX Link (Chatbot vs. Command Center)
+A terminal is great for development, but a **Web Portal** is necessary for a "Command Center" feel. 
+* **The Interface:** We move beyond raw text to a **Single Page Application (SPA)** that runs in your mobile browser.
+* **Open WebUI:** Provides a desktop-class experience on a tablet, including model switching, document uploads (RAG), and real-time inference monitoring.
+* **OpenCode Web:** Allows you to see the "Agentic Loops" (Plan -> Act -> Validate) in a structured visual layout.
 
-#### 2. Port Visibility & Firewalls
-By default, most operating systems block incoming connections to protect you. To make the Link work, you must open "Ports":
-* **Port 1234:** The standard entry point for LM Studio.
-* **The Fix:** We learn to set up "Allow Rules" that specifically permit your phone's IP to talk to your desktop's AI ports.
+#### 2. Networking Topology (The Control Plane)
+In RF, the Control Plane manages the signaling. In Phase 10, we establish the Web Control Plane:
+* **The Backend:** LM Studio / Ollama running on port 1234/11434.
+* **The Frontend:** Open WebUI running on port 3000 (usually via Docker).
+* **The Link:** Your tablet connects to `http://<DESKTOP_IP>:3000`.
 
-#### 3. 🌟 Bonus: The Long-Range Link (Tailscale)
-Once the local link is solid, we can extend the range.
-* **The Tech:** **Tailscale** creates an encrypted "Virtual Ethernet Cable." It allows your phone to talk to your desktop as if it were on the local Wi-Fi, even when you are on a cellular data link (5G).
+#### 3. Mobile-Responsive Interaction
+We specifically focus on interfaces that adapt to touch-screens, allowing you to trigger "The Forge" (Phase 9) or "The Council" (Phase 6) while away from your desk.
 
 ---
 
@@ -34,32 +34,31 @@ Once the local link is solid, we can extend the range.
 
 | Term | Definition | RF Engineering Analogy |
 | :--- | :--- | :--- |
-| **Local IP** | The address of your device within your home network. | A **Station ID** in a local net. |
-| **Port** | A specific logical "gate" used for data (e.g., 1234). | A **Channel Number** or Frequency Bin. |
-| **LAN** | Local Area Network; your home/office Wi-Fi and Ethernet. | A **Local Cell** or Pico-cell. |
-| **Firewall** | A security system that controls incoming/outgoing traffic. | An **RF Band-pass Filter**. |
-| **Tunneling** | Encapsulating data to move it across a network securely. | **Sub-carrier Modulation**. |
+| **WUI** | Web User Interface; the visual dashboard for the AI. | A **Graphic Spectrum Display**. |
+| **CORS** | Cross-Origin Resource Sharing; security settings for browser-to-API talk. | **Signal Handshaking**. |
+| **Docker** | A container system used to easily deploy web portals like Open WebUI. | A **Modular Sub-system**. |
+| **Mobile-Responsive** | Design that automatically scales for phones and tablets. | **Adaptive Bandwidth**. |
 
 ---
 
 ### ❓ Comprehension Questions
-1. Why does "localhost" only work on the desktop itself and not from your phone?
-2. What is the command to find your local IP address on a Linux system?
-3. How does a firewall act like a "Band-pass Filter" for network traffic?
-4. What is the security risk of opening port 1234 to the *entire* internet instead of just your local network?
-5. (Bonus) How does Tailscale solve the problem of "NAT Traversal"?
+1. How does a Web Portal like Open WebUI differ from a simple `curl` command to the API?
+2. Why is Docker the preferred method for deploying these complex AI interfaces?
+3. What is the benefit of seeing the AI's "Thought Process" visually rather than just the final answer?
+4. How do you ensure your tablet has permission to talk to the LM Studio server on your desktop?
+5. (Bonus) How does Tailscale protect your Web Portal from the open internet?
 
 ---
 
-### 🧪 Lab Reference: `LABS/local_link_test.sh`
+### 🧪 Lab Reference: `LABS/deploy_portal.sh` (Planned)
 
 #### What to expect:
-You will find your local IP, configure your desktop server to "Serve on Local Network," and then use your phone's browser to hit the desktop's IP address. Success is when you see the "LM Studio API" status page on your mobile device.
+You will run a script that launches **Open WebUI** using Docker. You will then configure it to point to your LM Studio API. Finally, you will open your tablet's browser and log into your own private "Nexus Portal."
 
 #### Generation Prompt (for the student):
-> "Write a bash script that detects the local IP address of the host, checks if port 1234 is currently listening for external connections, and provides a QR code or URL that a user can scan with their phone to test the connection to the AI Base Station."
+> "Write a bash script to deploy Open WebUI via Docker. The script should pull the latest image, map port 3000 to the host, and set the `OPENAI_API_BASE_URL` to point to the local LM Studio instance. Include a check to ensure the 3080 Ti drivers are visible to the container for GPU acceleration."
 
 ---
 
 ### ✅ Success Criteria
-* **Proof of Work:** The student sends a prompt from a mobile browser (on the same Wi-Fi) and sees the 3080 Ti generate a response in real-time.
+* **Proof of Work:** The student interacts with their Project Nexus agent via a tablet browser, successfully browsing files and triggering a local inference run.
