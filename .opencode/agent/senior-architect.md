@@ -4,7 +4,9 @@ description: High-level architectural reasoning and strategic planning.
 mode: subagent
 model: lmstudio/qwen/qwen3.5-35b-a3b
 temperature: 0.2
-tools: [read_file, list_dir]
+tools:
+  read_file: {}
+  list_dir: {}
 ---
 
 # Senior Architect Role

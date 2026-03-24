@@ -4,7 +4,11 @@ description: High-speed implementation, tool-use, and terminal execution.
 mode: subagent
 model: lmstudio/qwen/qwen3.5-35b-a3b
 temperature: 0.1
-tools: [read_file, write_file, shell, git]
+tools:
+  read_file: {}
+  write_file: {}
+  shell: {}
+  git: {}
 ---
 
 # Lead Developer Role
