@@ -45,56 +45,43 @@ def get_research():
 
 def run_orchestration(mission):
     run_id = f"REF-{int(time.time())}"
-    print(f"🌟 Mission: {mission} (Run ID: {run_id})")
+    print(f"🌟 Mission: {mission}")
 
-    # --- RESEARCH PHASE ---
-    ctx = get_research()
-    print(f"\n✅ Researcher: Context Loaded.")
-    print(f"   Project Status: {ctx['status']}")
-    print(f"   Architecture: {ctx['design']}")
-
-    # --- PHASE 1: ARCHITECT ---
-    architect_instruction = (
-        "SYSTEM: You are a Senior RF Engineer. Provide a concise Python/Numpy implementation.\n"
-        f"CONTEXT: Current Status is {ctx['status']}. Previous Design: {ctx['design']}\n"
-        f"USER: {mission} (Session: {run_id})"
-    )
-    
+    # --- PHASE 1: THE ARCHITECT ---
+    # Simplified: No complex context, just the mission.
     print("\n🏗️  Architect is designing...")
-    design = get_agent_response([{"role": "user", "content": architect_instruction}], temperature=0.7)
+    design = get_agent_response([
+        {"role": "system", "content": "You are a Senior RF Engineer. Provide a concise Python/Numpy script. CODE ONLY."},
+        {"role": "user", "content": mission}
+    ], temperature=0.7)
     
     if not design:
-        print("⚠️ Architect was silent. Using skeleton.")
-        design = "def simulate_channel(): pass"
+        print("❌ CRITICAL: Architect failed to respond. Check LM Studio logs.")
+        return
     
     print("\n--- ARCHITECT'S PROPOSAL ---")
     print(design[:300] + "...")
 
     # --- PHASE 2: THE REVIEWER ---
-    reviewer_instruction = (
-        "SYSTEM: You are a strict Code Reviewer. You MUST find 3 technical flaws. Be vocal and critical.\n"
-        f"USER: Review this code and provide 3 points of feedback:\n{design}"
-    )
-    
     print("\n🧐 Reviewer is analyzing...")
-    # Increase temperature to 0.4 to encourage 'Creative' criticism
-    critique = get_agent_response([{"role": "user", "content": reviewer_instruction}], temperature=0.4)
+    critique = get_agent_response([
+        {"role": "system", "content": "You are a strict Code Reviewer. Find 2 technical math errors in this code. Be brief."},
+        {"role": "user", "content": f"Code:\n{design}"}
+    ], temperature=0.1)
     
     if not critique:
-        print("⚠️ Reviewer was silent. Using forced feedback.")
-        critique = "1. Optimize math. 2. Add docs. 3. Check normalization."
+        print("❌ CRITICAL: Reviewer failed to respond.")
+        return
 
     print("\n--- CRITICAL FEEDBACK ---")
     print(critique)
 
     # --- PHASE 3: THE REVISION ---
-    final_msgs = [
-        {"role": "system", "content": "You are a Master Engineer. Incorporate feedback into final code."},
-        {"role": "user", "content": f"Feedback to address: {critique}\n\nProvide the final optimized Python code."},
-    ]
-    
     print("\n🛠️  Architect is revising...")
-    final_output = get_agent_response(final_msgs, temperature=0.2, max_tokens=2000)
+    final_output = get_agent_response([
+        {"role": "system", "content": "You are a Master Engineer. Rewrite the code to address the feedback."},
+        {"role": "user", "content": f"Feedback: {critique}\n\nProvide the final code."}
+    ], temperature=0.2, max_tokens=2000)
     
     return final_output
 
