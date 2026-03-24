@@ -5,8 +5,8 @@ mode: subagent
 model: lmstudio/qwen/qwen3.5-35b-a3b
 temperature: 0.2
 tools:
-  read_file: {}
-  list_dir: {}
+  read_file: true
+  list_dir: true
 ---
 
 # Senior Architect Role

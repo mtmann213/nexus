@@ -5,10 +5,10 @@ mode: subagent
 model: lmstudio/qwen/qwen3.5-35b-a3b
 temperature: 0.1
 tools:
-  read_file: {}
-  write_file: {}
-  shell: {}
-  git: {}
+  read_file: true
+  write_file: true
+  shell: true
+  git: true
 ---
 
 # Lead Developer Role
