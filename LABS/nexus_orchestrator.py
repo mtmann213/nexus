@@ -13,47 +13,62 @@ def get_agent_response(messages, max_tokens=1500, temperature=0.3):
         )
         content = response.choices[0].message.content
         if not content or content.strip() == "":
-            return "⚠️ Error: The agent had no feedback to provide."
+            return None # Return None to trigger retry/error handling
         return content
     except Exception as e:
-        return f"❌ API Error: {str(e)}"
+        print(f"❌ API Error: {str(e)}")
+        return None
 
 def run_orchestration(mission):
-    # Unique timestamp to bypass any local prompt caching
     run_id = f"REF-{int(time.time())}"
     print(f"🌟 Mission: {mission} (Run ID: {run_id})")
     
     # --- PHASE 1: THE ARCHITECT ---
-    architect_msgs = [
-        {"role": "system", "content": "You are a Senior RF Engineer. Provide a concise Python/Numpy implementation. Do NOT include file paths or environment logs."},
-        {"role": "user", "content": f"{mission} (Session: {run_id})"}
-    ]
+    # Merge System and User into a single message for maximum local reliability
+    architect_instruction = (
+        "SYSTEM: You are a Senior RF Engineer. Provide a concise Python/Numpy implementation.\n"
+        f"USER: {mission} (Session: {run_id})"
+    )
     
     print("\n🏗️  Architect is designing...")
-    design = get_agent_response(architect_msgs, temperature=0.7, max_tokens=800)
+    design = get_agent_response([{"role": "user", "content": architect_instruction}], temperature=0.7)
+    
+    if not design:
+        print("⚠️ Architect was silent. Using default skeleton.")
+        design = "def simulate_channel(): pass # Initial draft failed"
+    
     print("\n--- ARCHITECT'S INITIAL PROPOSAL ---")
-    print(design)
+    print(design[:500] + "...")
     print("-------------------------------------")
 
     # --- PHASE 2: THE REVIEWER ---
-    # We use a very strict structure here to FORCE a response
-    reviewer_msgs = [
-        {"role": "system", "content": "You are a Critical Code Reviewer. You MUST find exactly 3 technical improvements. Use the format: 1. [ISSUE], 2. [ISSUE], 3. [ISSUE]."},
-        {"role": "user", "content": f"Review this code and provide your 3 required points:\n\n{design}"}
-    ]
+    reviewer_instruction = (
+        "SYSTEM: You are a Critical Code Reviewer. List 3 required technical improvements.\n"
+        f"USER: Review this code:\n{design}"
+    )
     
     print("\n🧐 Reviewer is analyzing...")
-    critique = get_agent_response(reviewer_msgs, temperature=0.1, max_tokens=600)
+    critique = get_agent_response([{"role": "user", "content": reviewer_instruction}], temperature=0.1)
+    
+    if not critique:
+        print("⚠️ Reviewer was silent. Forcing critical feedback.")
+        critique = "1. Performance optimization needed. 2. Add docstrings. 3. Verify math."
+
     print("\n--- REVIEWER'S CRITICAL FEEDBACK ---")
     print(critique)
     print("-------------------------------------")
 
     # --- PHASE 3: THE REVISION ---
-    architect_msgs.append({"role": "assistant", "content": design})
-    architect_msgs.append({"role": "user", "content": f"Reviewer's Feedback: {critique}\n\nFinal Task: Incorporate all feedback and provide the complete, optimized Python code."})
+    # The final turn usually works best with the full U->A->U sequence
+    final_msgs = [
+        {"role": "system", "content": "You are a Master Engineer. Address the critique and provide final code."},
+        {"role": "user", "content": f"Initial Design: {design}"},
+        {"role": "assistant", "content": "I have received the design."},
+        {"role": "user", "content": f"Reviewer Feedback: {critique}\n\nFinal Task: Provide optimized Python code."}
+    ]
     
     print("\n🛠️  Architect is revising based on feedback...")
-    final_output = get_agent_response(architect_msgs, temperature=0.2, max_tokens=1500)
+    final_output = get_agent_response(final_msgs, temperature=0.2, max_tokens=2000)
     
     return final_output
 
