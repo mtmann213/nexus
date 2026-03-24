@@ -36,6 +36,14 @@ AI models are not deterministic. They are probabilistic engines that can fail in
     clean_json = raw_output[start:end+1]
     ```
 
+### 🏮 Trap 5: The "Latency Timeout"
+**Symptom:** `openai.APITimeoutError: Request timed out.`
+- **Cause:** Large models (35B+) or complex math prompts can take longer than the default 60-second API timeout to generate the first token.
+- **The Fix:** Explicitly set a higher timeout in your client initialization:
+    ```python
+    client = OpenAI(base_url=BASE_URL, timeout=300.0)
+    ```
+
 ---
 
 ### 🎓 The Golden Rule:

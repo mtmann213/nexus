@@ -28,8 +28,16 @@
     - **JSON Hygiene:** Cleaning AI output to ensure valid data parsing.
     - **Jinja Template:** The strict "Conversation Script" local servers follow.
 
+## Session 6: 2026-03-22
+### Learning Focus: Cognitive Harnesses (Phase 8)
+- **Terminology Spotlight:**
+    - **Cognitive Harness:** A software wrapper that enforces a specific thought-process on an LLM (e.g., `reflex_harness.py`).
+    - **Reflexive Reasoning:** The AI's ability to "look back" at its own work and identify flaws.
+    - **Latency Timeout:** A failure mode where complex logic takes longer than the default API wait-time.
+- **Success:** Built a "Reflex Rig" that allowed a 35B model to catch its own syntax errors and improve RF physics (ITU-R rain models) through a 3-step loop.
+
 ### Daily Log
-- Built a multi-agent orchestrator to simulate "Collaborative Engineering."
-- **Milestone:** Created the `TROUBLESHOOTING_AI.md` to ensure future students can navigate AI-specific technical hurdles autonomously.
-- **Research:** Identified "Skills" as the next major architectural evolution for Project Nexus.
-- **Final Status:** Project Nexus is now a complete, documented, and reproducible AI mastery environment with a forward-looking roadmap.
+- Built `reflex_harness.py` to demonstrate the "Harness vs. Model" distinction.
+- Successfully implemented a 300s timeout to handle heavy RF math processing on the 3080 Ti.
+- **Milestone:** Proved that "Harness Engineering" can upgrade a model's intelligence without changing its weights.
+- **Final Status:** Project Nexus is fully documented and pushed to GitHub.

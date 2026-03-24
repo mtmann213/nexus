@@ -12,3 +12,5 @@
 | 2026-03-22 | Phase 5 | Orchestration | nexus_orchestrator.py established multi-agent peer-review loops. |
 | 2026-03-22 | Phase 5 | Knowledge Base | TROUBLESHOOTING_AI.md created to codify common AI failure modes. |
 | 2026-03-22 | Phase 7 | Research | Identified 'Skills' as the next evolution in agentic strategy. |
+| 2026-03-22 | Phase 7 | Implementation | Installed OpenCode and created the 'Nexus Hardware Management' skill. |
+| 2026-03-22 | Phase 8 | Harness Engineering | Built reflex_harness.py to implement autonomous self-correction loops. |
