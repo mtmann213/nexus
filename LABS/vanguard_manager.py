@@ -1,69 +1,88 @@
-import os
 import time
-from config import client, MODEL_NAME
+import json
+from config import client
 
-# Tri-Tier Role Mapping (Simulated if models are not loaded)
-# TACTICAL: Lead Developer (VRAM / qwen-14b)
-# STRATEGIC: Senior Architect (RAM / llama-70b)
-# DISPATCHER: 1B Router (VRAM / gemma-1b)
+# Phase 9: Vanguard Dispatcher
+# This script implements 'Silicon Economics' by routing tasks to the correct model tier.
 
-def get_routing_decision(prompt):
-    """The Dispatcher (Tier 1) decides the 'Link Budget' for this thought."""
-    dispatch_prompt = (
-        "Classify the following user prompt as either 'TACTICAL' (coding, shell, bugs) "
-        "or 'STRATEGIC' (architecture, math, design, theory). "
-        "Respond with ONLY the word TACTICAL or STRATEGIC.\n\n"
-        f"Prompt: {prompt}"
+TIER_1_DISPATCHER = "qwen3.5-0.8b"      # Fast routing (VRAM)
+TIER_2_DEVELOPER  = "qwen/qwen3.5-35b-a3b" # Implementation (VRAM)
+TIER_3_ARCHITECT  = "llama-3.3-70b"     # Strategic Design (RAM)
+
+def classify_intent(user_prompt):
+    """Uses the 0.8B model to decide if a task is TACTICAL or STRATEGIC."""
+    print(f"🚦 Dispatcher ({TIER_1_DISPATCHER}) is classifying intent...")
+    
+    system_prompt = (
+        "You are an AI Router. Classify the user prompt into ONE category: 'TACTICAL' or 'STRATEGIC'.\n"
+        "- TACTICAL: Coding, debugging, shell commands, syntax fixes.\n"
+        "- STRATEGIC: System design, math proofs, architectural planning.\n"
+        "Output ONLY the word 'TACTICAL' or 'STRATEGIC'."
     )
     
-    print("📡 [Tier 1] Dispatcher is analyzing intent...")
     try:
         response = client.chat.completions.create(
-            model=MODEL_NAME, # In a real tri-tier, this would be a 1B model
-            messages=[{"role": "user", "content": dispatch_prompt}],
-            max_tokens=5,
-            temperature=0.0
-        )
-        decision = response.choices[0].message.content.strip().upper()
-        return "STRATEGIC" if "STRATEGIC" in decision else "TACTICAL"
-    except Exception as e:
-        print(f"⚠️ Dispatcher failed: {e}. Defaulting to TACTICAL.")
-        return "TACTICAL"
-
-def talk_to_team(user_prompt):
-    decision = get_routing_decision(user_prompt)
-    print(f"⚡ [Tier 2/3] Routing to: {decision} Agent...")
-    
-    # Read the Blackboard (AGENTS.md)
-    context = ""
-    if os.path.exists("../AGENTS.md"):
-        with open("../AGENTS.md", "r") as f:
-            context = f.read()
-
-    system_msg = f"You are part of Project Nexus. Intent: {decision}. Current State:\n{context}"
-    
-    try:
-        start_time = time.time()
-        response = client.chat.completions.create(
-            model=MODEL_NAME,
+            model=TIER_1_DISPATCHER,
             messages=[
-                {"role": "system", "content": system_msg},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            temperature=0.3
+            temperature=0.0,
+            max_tokens=10
         )
-        duration = time.time() - start_time
-        print(f"✅ Response received in {duration:.2f}s")
-        return response.choices[0].message.content
+        intent = response.choices[0].message.content.strip().upper()
+        # Handle cases where model adds extra text
+        if "STRATEGIC" in intent: return "STRATEGIC"
+        return "TACTICAL"
     except Exception as e:
-        return f"❌ Error communicating with team: {e}"
+        print(f"❌ Dispatcher failed: {e}")
+        return "TACTICAL" # Default to Developer tier
+
+def execute_task(intent, user_prompt):
+    """Routes the prompt to the appropriate model based on intent."""
+    if intent == "STRATEGIC":
+        target_model = TIER_3_ARCHITECT
+        tier_name = "Senior Architect (Tier 3)"
+    else:
+        target_model = TIER_2_DEVELOPER
+        tier_name = "Lead Developer (Tier 2)"
+        
+    print(f"📡 Routing to {tier_name}...")
+    
+    start_time = time.time()
+    try:
+        response = client.chat.completions.create(
+            model=target_model,
+            messages=[{"role": "user", "content": user_prompt}],
+            temperature=0.3,
+            max_tokens=1000
+        )
+        content = response.choices[0].message.content
+        latency = time.time() - start_time
+        return content, latency
+    except Exception as e:
+        return f"❌ Routing Error: {e}", 0
+
+def run_vanguard_session():
+    print("🏁 Project Nexus: Vanguard Management System 🏁")
+    print("-" * 50)
+    
+    # Test Prompts
+    prompts = [
+        "Fix the syntax error in my Python list comprehension.",
+        "Design a high-level plan for a multi-tenant MCP server architecture."
+    ]
+    
+    for p in prompts:
+        print(f"\n👤 User: {p}")
+        intent = classify_intent(p)
+        print(f"🎯 Intent: {intent}")
+        
+        result, latency = execute_task(intent, p)
+        
+        print(f"\n🤖 Response (latency: {latency:.2f}s):")
+        print(f"{result[:200]}...")
+        print("-" * 50)
 
 if __name__ == "__main__":
-    print("🚀 Vanguard Multi-Agent Manager Online.")
-    print("This script simulates the VRAM/RAM tiering using your current configuration.")
-    while True:
-        prompt = input("\n[User] ❯ ")
-        if prompt.lower() in ['exit', 'quit']: break
-        print("-" * 30)
-        print(talk_to_team(prompt))
-        print("-" * 30)
+    run_vanguard_session()

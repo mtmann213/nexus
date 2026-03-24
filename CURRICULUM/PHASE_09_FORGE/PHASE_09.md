@@ -1,30 +1,52 @@
 # Phase 9: The Forge (Local Team Engineering)
-## Subject: Maximizing Tiered Hardware for Multi-Agent Workflows
+## Subject: Silicon Economics and Tiered Model Deployment
 
 ### 🎯 Learning Objectives
 By the end of this phase, the trainee will be able to:
-1. **Design** a Tiered Hybrid Architecture that balances VRAM (Speed) and System RAM (Depth).
-2. **Implement** the **Dispatcher Pattern** using a 1B model to route tasks between implementation and reasoning agents.
-3. **Configure** a "Shared-Brain" environment using the **Blackboard Protocol** (`AGENTS.md`).
-4. **Optimize** local inference using KV Cache Quantization and Flash Attention.
-5. **Construct** an automated **Git Hook Audit** that enforces quality gates on every commit.
+1. **Allocate** compute resources across VRAM and RAM tiers based on task complexity.
+2. **Deploy** a multi-model "Brain" using the Dispatcher Pattern.
+3. **Master** the "Small-Med-Large" strategy for local engineering teams.
+4. **Implement** persistence using the Blackboard Protocol (`AGENTS.md`).
+5. **Optimize** high-parameter models (70B+) for use in low-VRAM environments.
 
 ---
 
-### 📖 Technical Deep Dive
+### 📖 Technical Deep Dive: Silicon Economics
 
-#### 1. Silicon Economics (The RAM/VRAM Split)
-In Phase 9, we split roles based on the **Latency-Logic Tradeoff**:
-* **The Lead Dev (VRAM Tier):** A 14B model pinned to the 3080 Ti for high-speed syntax and execution.
-* **The Architect (RAM Tier):** A 70B+ model offloaded to System RAM for strategic reasoning.
+#### 1. The Tri-Tier Strategy
+We don't use one model for everything. We use a **Tiered Hierarchy**:
 
-#### 2. The Blackboard Protocol (`AGENTS.md`)
-To prevent token waste and "context drift" between agents, we implement a persistent Blackboard.
-* **The Strategy:** We use `AGENTS.md` as a persistent "Source of Truth." The Architect writes the math and design; the Developer reads it to write the code.
-* **Neutrality:** Using `AGENTS.md` ensures that your project context is **Portable** across Gemini, OpenCode, and Aider.
+*   **Tier 1: The Dispatcher (1B - 3B)**
+    *   *Purpose:* Routing, Voice transcription, and Hardware monitoring.
+    *   *Constraint:* Must be sub-second latency. Always pinned to VRAM.
+*   **Tier 2: The Developer (7B - 14B)**
+    *   *Purpose:* Coding, Unit testing, and Shell execution.
+    *   *Constraint:* Must have high "Coding IQ." Should fit 100% in VRAM for real-time interaction.
+*   **Tier 3: The Architect (30B - 70B+)**
+    *   *Purpose:* Complex architectural design, mathematical proofs, and logic review.
+    *   *Constraint:* Intelligence is prioritized over speed. Can be offloaded to System RAM (CPU).
 
-#### 3. The Dispatcher Pattern
-We utilize a tiny **1B parameter model** as a "Pre-Selector" to route user prompts to the correct tier based on intent (TACTICAL vs. STRATEGIC).
+#### 2. Hardware Deployment Blueprints
+
+**Desktop Profile (12GB VRAM / 64GB RAM):**
+- **Dispatcher:** Qwen 2.5 1.5B (VRAM)
+- **Developer:** Qwen 2.5 Coder 14B (VRAM)
+- **Architect:** Llama 3.3 70B (System RAM)
+
+**Laptop Profile (8GB VRAM / 32GB RAM):**
+- **Dispatcher:** Qwen 2.5 0.5B (VRAM)
+- **Developer:** Qwen 2.5 Coder 7B (VRAM)
+- **Architect:** Qwen 2.5 32B (System RAM)
+
+---
+
+### 🚦 The Workflow (The Loop of Three)
+1.  **User** sends a prompt to the Dispatcher.
+2.  **Dispatcher** classifies: is this `TACTICAL` or `STRATEGIC`?
+3.  **Handoff:**
+    *   If `STRATEGIC`: Architect writes a design to `AGENTS.md`.
+    *   If `TACTICAL`: Developer reads the design and implements code.
+4.  **Sync:** All changes are logged in the System State of `AGENTS.md`.
 
 ---
 
@@ -32,32 +54,22 @@ We utilize a tiny **1B parameter model** as a "Pre-Selector" to route user promp
 
 | Term | Definition | RF Engineering Analogy |
 | :--- | :--- | :--- |
-| **Blackboard Protocol** | A shared file (`AGENTS.md`) used for inter-agent state synchronization. | A **Shared Lab Notebook**. |
-| **Dispatcher** | A lightweight model that routes requests to specialized agents. | A **Pre-Selector Filter**. |
-| **KV Cache Quantization** | Compressing the AI's "working memory" to save VRAM. | **Buffer Compression**. |
-| **Partial Offload** | Running some model layers on GPU and others on CPU/RAM. | **Hybrid Processing**. |
-| **Portability** | The ability to move project state between different AI services. | **Universal Interoperability**. |
+| **Compute Budgeting** | Allocating specific hardware resources to specific tasks. | **Link Budgeting**. |
+| **VRAM Pinning** | Ensuring a model never leaves the GPU memory. | **Frequency Locking**. |
+| **CPU Offloading** | Moving model layers to System RAM to handle large models. | **Off-chip processing**. |
+| **Intent Classification** | Detecting what the user wants before choosing a model. | **Signal Identification**. |
 
 ---
 
-### ❓ Comprehension Questions
-1. Why is it more efficient to run an Architect on System RAM instead of VRAM for high-level planning?
-2. How does the Blackboard Protocol save money and tokens in a multi-agent team?
-3. What is the benefit of using `AGENTS.md` over a service-specific file like `CLAUDE.md`?
-4. If your 14B model is running at 1 token/sec, what is the likely hardware bottleneck?
-5. How does a Git Hook Audit turn your local machine into a "Professional Dev Shop"?
-
----
-
-### 🧪 Lab Reference: `LABS/vanguard_manager.py` (Draft)
+### 🧪 Lab Reference: `LABS/vanguard_manager.py`
 
 #### What to expect:
-You will run a "Tri-Tier" manager script. You will speak to a single terminal. A 1B model will route your request. The result will be documented in `AGENTS.md` for persistent project tracking.
+You will build a manager that automatically routes your prompt to the correct model. You will see the **Dispatcher** make a split-second decision to either call the **Developer** for code or the **Architect** for a deep design session.
 
 #### Generation Prompt (for the student):
-> "Build a Tri-Tier AI Manager in Python. Use a 1B model to classify user intent as TACTICAL or STRATEGIC. Route requests to specialized agents. Ensure both agents read and write to an 'AGENTS.md' file to maintain project state."
+> "Build a Python manager script that uses LM Studio's multi-model support. Use a 1.5B model as a 'Router' to classify prompts. If the prompt requires coding, call the 14B model. If it requires strategy, call the 70B model. Record the 'Resource Usage' for each turn."
 
 ---
 
 ### ✅ Success Criteria
-* **Proof of Work:** (Planned) The user demonstrates a "Handoff" where the Architect designs a feature in the blackboard (`AGENTS.md`), and the Developer implements it.
+* **Proof of Work:** Student demonstrates a single prompt triggering different models based on complexity, with all results synced to `AGENTS.md`.
