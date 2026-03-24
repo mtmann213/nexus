@@ -1,38 +1,39 @@
-# Project Agents: Project Nexus Standard
+# Project Agents: Project Nexus Tiered Team
 
-## 👥 The Team
+## 👥 The Team Structure (Compute-Aware)
 
-### @senior-architect
-- **Role**: Strategic planner. High-level logic, design patterns, and system architecture.
-- **Definition**: `.opencode/agent/senior-architect.md`
-- **Model**: llama-3.3-70b (Optimized for RAM tier).
-- **Operating Instructions**:
-    - **Hardware Aware**: You are running on an RTX 3080 Ti (12GB) + 64GB RAM.
-    - **Safe Inference**: Maintain VRAM < 11,000MB. If > 11,500MB, suggest offloading.
-    - **Blackboard**: Read/Write to `AGENTS.md` for persistent state.
+### 1. @dispatcher (Tier 1: VRAM)
+- **Role**: Intent Classification & Routing.
+- **Model**: Gemma 3 1B (Pinned to VRAM).
+- **Responsibility**: Instant triage. Decides if a task is TACTICAL or STRATEGIC.
 
-### @lead-developer
-- **Role**: Execution expert. Writes code, runs terminal commands, and manages Git.
-- **Definition**: `.opencode/agent/lead-developer.md`
-- **Model**: qwen2.5-coder:14b (Optimized for VRAM tier).
-- **Operating Instructions**:
-    - **Hardware Aware**: Maximize 3080 Ti speed (~19 t/s). 
-    - **Defensive Coding**: Always use `start = output.find("{")` pattern for JSON.
-    - **Template Rule**: Strictly follow User -> Assistant alternating patterns.
+### 2. @lead-developer (Tier 2: VRAM)
+- **Role**: Implementation & Execution.
+- **Model**: Qwen 3.5 Coder 14B (VRAM).
+- **Responsibility**: Writing code, running terminal commands, and managing file structures.
+
+### 3. @researcher (Tier 3: System RAM)
+- **Role**: Technical Intelligence & Documentation.
+- **Model**: Llama 3.1 8B (System RAM).
+- **Responsibility**: Scanning local docs, web search, and API summarization.
+
+### 4. @senior-architect (Tier 4: System RAM)
+- **Role**: Strategy & Senior Review.
+- **Model**: Llama 3.3 70B (System RAM - 0 GPU Layers).
+- **Responsibility**: High-level system design, complex math, and architectural audits.
 
 ## 🛠️ Tech Stack & Conventions
-- **Language**: Python 3.12+ / NumPy / TensorFlow.
+- **Blackboard**: This file (`AGENTS.md`) is the single source of truth for cross-agent synchronization.
+- **Optimizations**: KV Cache Quantization (INT4) and Flash Attention enabled.
 - **Protocol**: Model Context Protocol (MCP) for tool integration.
-- **Blackboard**: This file (`AGENTS.md`) is the shared memory.
+
+## 🚦 Communication Protocol
+1. **Dispatcher Triage**: Every request starts with the @dispatcher.
+2. **Strategic Planning**: If the task is complex, @senior-architect writes the plan to this file.
+3. **Execution**: @lead-developer implements only after the plan is synchronized.
+4. **Verification**: @researcher validates API usage and @lead-developer runs tests.
 
 ## 📍 System State
-- **Status**: Phase 7 - Master Skill Engineering.
-- **Last Run ID**: REF-1774382174
-- **Sync Time**: 2026-03-24 14:36:14
-
-## 🏛️ Architect's Section
-- **Design**: Tiered memory architecture implemented via `LABS/config.py`.
-
-## 🛠️ Developer's Section
-- **Files Created**: benchmark_inference.py, store_memories.py, mcp_client.py, vanguard_manager.py
-- **Status**: All baseline infrastructure scripts consolidated into `LABS/`.
+- **Status**: Phase 9 - The Forge (4-Agent Integration).
+- **Target Hardware**: Desktop (3080 Ti / 64GB) & Laptop (8GB / 32GB).
+- **Last Sync**: 2026-03-24 15:45:00
