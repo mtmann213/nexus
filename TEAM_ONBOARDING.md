@@ -55,11 +55,16 @@ Copy the `PROJECT_NEXUS_MANIFEST.md` from this repo and tell your AI Mentor:
 3.  **The "VRAM is King" Rule:** Do NOT use "Partial Offload" to System RAM. It will slow your mentor down to 1 token/second. Use **Mistral Nemo 12B** or **Llama 3.1 8B**; they fit entirely in 8GB.
 4.  **Virtual Environments:** Always run your code in a `venv`. Ubuntu 24.04 blocks global `pip` installs to protect the OS.
 
-### 🏛️ The Curriculum (Phases)
-- **Phase 1: Foundations** (Inference & APIs)
-- **Phase 2: The Librarian** (Embeddings & RAG)
-- **Phase 3: The Hand** (Autonomous Agents)
-- **Phase 4: The Bridge** (Model Context Protocol - MCP)
-- **Phase 5: The Council** (Multi-Agent Orchestration)
+---
+
+### 🏛️ The Curriculum (Full Roadmap)
+1. **Phase 1: The Foundation** (Inference, Tokens, & Tradeoffs)
+2. **Phase 2: The Librarian** (Embeddings & RAG)
+3. **Phase 3: The Hand** (Agency & System Directives)
+4. **Phase 4: The Bridge** (MCP & Security)
+5. **Phase 5: The Rig** (Harness Engineering)
+6. **Phase 6: The Council** (Orchestration & Evals)
+7. **Phase 7: The Master** (Skills & OpenCode)
+8. **Phase 8: The Voice** (Multimodality - Elective)
 
 Welcome to the future of RF Engineering!
