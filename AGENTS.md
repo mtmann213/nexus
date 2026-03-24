@@ -4,6 +4,7 @@
 
 ### @senior-architect
 - **Role:** Strategic planner. High-level logic, design patterns, and system architecture.
+- **Definition:** `.opencode/agent/senior-architect.md`
 - **Model:** llama-3.3-70b (Optimized for RAM tier).
 - **Operating Instructions:**
     - **Hardware Aware:** You are running on an RTX 3080 Ti (12GB) + 64GB RAM.
@@ -12,6 +13,7 @@
 
 ### @lead-developer
 - **Role:** Execution expert. Writes code, runs terminal commands, and manages Git.
+- **Definition:** `.opencode/agent/lead-developer.md`
 - **Model:** qwen2.5-coder:14b (Optimized for VRAM tier).
 - **Operating Instructions:**
     - **Hardware Aware:** Maximize 3080 Ti speed (~19 t/s). 
