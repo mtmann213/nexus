@@ -3,167 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Nexus: AI Mastery Syllabus</title>
+    <title>Project Nexus: AI Mastery Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap');
-        body { font-family: 'Fira Code', monospace; background-color: #0f172a; color: #e2e8f0; }
-        .sidebar { height: 100vh; overflow-y: auto; background-color: #1e293b; border-right: 1px solid #334155; }
-        .content { height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
-        .phase-card { background-color: #1e293b; border: 1px solid #334155; transition: all 0.2s; }
-        .phase-card:hover { border-color: #38bdf8; }
-        pre { background-color: #000; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; color: #38bdf8; }
-        h1, h2, h3 { color: #38bdf8; font-weight: 600; }
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .sidebar { height: 100vh; overflow-y: auto; background-color: #1e293b; border-right: 1px solid #334155; position: fixed; width: 20rem; }
+        .main-content { margin-left: 20rem; padding: 3rem; }
+        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; padding: 2rem; margin-bottom: 3rem; }
+        h1, h2, h3 { color: #38bdf8; font-weight: 700; }
         .glossary-term { color: #f472b6; font-weight: bold; }
-        .rf-analogy { color: #fbbf24; font-style: italic; }
-        .success-box { border-left: 4px solid #4ade80; padding-left: 1rem; background: #064e3b; }
+        .rf-analogy { color: #fbbf24; font-style: italic; font-size: 0.875rem; }
+        pre { background-color: #000; padding: 1.5rem; border-radius: 0.5rem; color: #38bdf8; overflow-x: auto; margin: 1.5rem 0; border: 1px solid #334155; }
+        .nav-link { display: block; padding: 0.5rem 1rem; color: #94a3b8; transition: all 0.2s; border-radius: 0.375rem; }
+        .nav-link:hover { background-color: #334155; color: #38bdf8; }
+        .active-nav { background-color: #334155; color: #38bdf8; font-weight: 600; }
+        .objective-list li { margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; }
+        .objective-list li::before { content: '🎯'; position: absolute; left: 0; }
+        .success-box { border-left: 4px solid #4ade80; background-color: rgba(6, 78, 59, 0.3); padding: 1.5rem; border-radius: 0 0.5rem 0.5rem 0; }
+        .trap-card { border-left: 4px solid #f472b6; background-color: rgba(131, 24, 67, 0.2); padding: 1rem; margin-bottom: 1rem; }
     </style>
 </head>
 <body class="flex">
 
-    <!-- Sidebar -->
-    <nav class="sidebar w-1/4 p-6 hidden md:block">
-        <h1 class="text-2xl mb-8 border-b border-sky-500 pb-2">PROJECT NEXUS</h1>
-        <ul class="space-y-4">
-            <li><a href="#manifest" class="hover:text-sky-400">📄 Master Manifest</a></li>
-            <li><a href="#troubleshooting" class="hover:text-pink-400">🛠️ Troubleshooting</a></li>
-            <li class="pt-4 text-xs uppercase tracking-widest text-slate-500">The Curriculum</li>
-            <li><a href="#phase1" class="hover:text-sky-400">01. Foundation</a></li>
-            <li><a href="#phase2" class="hover:text-sky-400">02. Librarian</a></li>
-            <li><a href="#phase3" class="hover:text-sky-400">03. The Hand</a></li>
-            <li><a href="#phase4" class="hover:text-sky-400">04. The Bridge</a></li>
-            <li><a href="#phase5" class="hover:text-sky-400">05. The Rig</a></li>
-            <li><a href="#phase6" class="hover:text-sky-400">06. The Council</a></li>
-            <li><a href="#phase7" class="hover:text-sky-400">07. The Master</a></li>
-            <li><a href="#phase8" class="hover:text-sky-400">08. The Voice</a></li>
-            <li class="pt-4 text-xs uppercase tracking-widest text-slate-500">Next Steps</li>
-            <li><a href="#roadmap" class="hover:text-yellow-400">🚀 Future Roadmap</a></li>
-        </ul>
+    <!-- Persistent Sidebar -->
+    <nav class="sidebar p-8">
+        <h1 class="text-3xl font-bold mb-2 tracking-tighter text-white">PROJECT NEXUS</h1>
+        <p class="text-xs text-slate-500 uppercase tracking-widest mb-10">AI Mastery via Construction</p>
+        
+        <div class="space-y-8">
+            <div>
+                <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Foundation</h3>
+                <ul class="space-y-1">
+                    <li><a href="#manifest" class="nav-link">📄 Master Manifest</a></li>
+                    <li><a href="#troubleshooting" class="nav-link">🛠️ Troubleshooting</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">The Curriculum</h3>
+                <ul class="space-y-1">
+                    <li><a href="#phase1" class="nav-link">01. The Foundation</a></li>
+                    <li><a href="#phase2" class="nav-link">02. The Librarian</a></li>
+                    <li><a href="#phase3" class="nav-link">03. The Hand</a></li>
+                    <li><a href="#phase4" class="nav-link">04. The Bridge</a></li>
+                    <li><a href="#phase5" class="nav-link">05. The Rig</a></li>
+                    <li><a href="#phase6" class="nav-link">06. The Council</a></li>
+                    <li><a href="#phase7" class="nav-link">07. The Master</a></li>
+                    <li><a href="#phase8" class="nav-link">08. The Voice</a></li>
+                    <li><a href="#phase9" class="nav-link">09. The Forge</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Appendix</h3>
+                <ul class="space-y-1">
+                    <li><a href="#roadmap" class="nav-link text-yellow-500">🚀 Future Roadmap</a></li>
+                    <li><a href="#resume" class="nav-link">📍 Session Resume</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="content flex-1 p-10 space-y-20">
+    <!-- Main Content Area -->
+    <main class="main-content flex-1 max-w-5xl">
 
-        <!-- Manifest -->
-        <section id="manifest" class="space-y-6">
-            <h2 class="text-4xl">Project Nexus Manifest</h2>
-            <div class="prose prose-invert max-w-none">
+        <!-- MASTER MANIFEST -->
+        <section id="manifest" class="card">
+            <h2 class="text-4xl mb-6">Master Manifest</h2>
+            <div class="space-y-6 text-lg text-slate-300">
                 <p>Build a hybrid Local/Cloud "Personal Intelligence Command Center" (PICC) that automates RF engineering research and code development. This project serves as a living curriculum for the user to master LLMs, Agentic Workflows, and the Model Context Protocol (MCP).</p>
-                <div class="grid grid-cols-2 gap-4 mt-6">
-                    <div class="p-4 bg-slate-800 rounded">
-                        <h3 class="text-sky-400">Tech Stack</h3>
-                        <ul class="text-sm list-disc ml-4">
-                            <li>Interface: Gemini CLI / OpenCode</li>
-                            <li>Backend: LM Studio (Local Qwen 35B)</li>
-                            <li>Memory: ChromaDB</li>
-                            <li>Standard: MCP (JSON-RPC)</li>
-                        </ul>
+                
+                <h3 class="text-2xl mt-8">The Tech Stack</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <span class="text-sky-400 font-bold">Interfaces:</span> Gemini CLI / OpenCode / Aider
                     </div>
-                    <div class="p-4 bg-slate-800 rounded">
-                        <h3 class="text-pink-400">Defensive Pillars</h3>
-                        <ul class="text-sm list-disc ml-4">
-                            <li>JSON Hygiene & Defensive Parsing</li>
-                            <li>System Directives & Anchoring</li>
-                            <li>VRAM Management (8GB/12GB Hard Limits)</li>
-                        </ul>
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <span class="text-sky-400 font-bold">Backend:</span> LM Studio (Local Qwen 35B) / Groq Cloud
                     </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <span class="text-sky-400 font-bold">Memory:</span> ChromaDB (Vector DB)
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg">
+                        <span class="text-sky-400 font-bold">Frameworks:</span> PydanticAI / LangChain / MCP
+                    </div>
+                </div>
+
+                <h3 class="text-2xl mt-8 text-pink-400">The Defensive Engineering Pillar</h3>
+                <ul class="list-disc ml-6 space-y-2 text-base">
+                    <li><span class="font-bold text-white">JSON Hygiene:</span> Build parsers that hunt for { and } to ignore model chatter.</li>
+                    <li><span class="font-bold text-white">The Template Rule:</span> Enforce strict alternating User -> Assistant patterns.</li>
+                    <li><span class="font-bold text-white">The VRAM Ceiling:</span> Prioritize models that fit 100% in VRAM to avoid the 1 t/s bottleneck.</li>
+                    <li><span class="font-bold text-white">Anchoring:</span> Use System Directives to prevent prompt drift in multi-turn tasks.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TROUBLESHOOTING -->
+        <section id="troubleshooting" class="card border-pink-500/30">
+            <h2 class="text-4xl text-pink-400 mb-8">🛠️ Troubleshooting Guide</h2>
+            <div class="space-y-6">
+                <div class="trap-card">
+                    <h4 class="text-lg font-bold text-white">🏮 Trap 1: The "Empty Response"</h4>
+                    <p class="text-sm text-slate-400 mt-1">Cause: Context Overflow or Model Refusal. Fix: Reduce max_tokens or lower temperature to 0.1.</p>
+                </div>
+                <div class="trap-card">
+                    <h4 class="text-lg font-bold text-white">🏮 Trap 2: The "400 BadRequest"</h4>
+                    <p class="text-sm text-slate-400 mt-1">Cause: Broken User-Assistant alternation. Fix: Ensure your message list always follows U -> A -> U -> A.</p>
+                </div>
+                <div class="trap-card">
+                    <h4 class="text-lg font-bold text-white">🏮 Trap 5: The "Latency Timeout"</h4>
+                    <p class="text-sm text-slate-400 mt-1">Cause: Local TTFT exceeds 60s. Fix: Set `timeout=300.0` in your OpenAI client config.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Troubleshooting -->
-        <section id="troubleshooting" class="p-8 bg-slate-900 border border-pink-500/30 rounded-lg">
-            <h2 class="text-3xl text-pink-400 mb-6">🛠️ AI Troubleshooting Guide</h2>
-            <div class="space-y-4">
-                <div class="p-4 bg-slate-800 rounded">
-                    <span class="text-pink-400 font-bold">Trap 1: The Empty Response</span>
-                    <p class="text-sm text-slate-400">Cause: Context Overflow or Model Refusal. Fix: Reduce tokens or lower temperature.</p>
-                </div>
-                <div class="p-4 bg-slate-800 rounded">
-                    <span class="text-pink-400 font-bold">Trap 2: The Template Collision</span>
-                    <p class="text-sm text-slate-400">Cause: Breaking User-Assistant alternation. Fix: Ensure strict role-playing in loops.</p>
-                </div>
-                <div class="p-4 bg-slate-800 rounded">
-                    <span class="text-pink-400 font-bold">Trap 5: The Latency Timeout</span>
-                    <p class="text-sm text-slate-400">Cause: Local GPU TTFT exceeds 60s. Fix: Set client timeout to 300.0s.</p>
-                </div>
+        <!-- PHASE 1 -->
+        <section id="phase1" class="card">
+            <h2 class="text-3xl mb-2">Phase 1: The Foundation</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Inference, Tokens, and the Physical Layer of AI</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Define a "Token" and explain how it relates to RF sampling.</li>
+                <li>Measure model throughput using Tokens Per Second (t/s).</li>
+                <li>Analyze the Latency-Weight Tradeoff between Local and Cloud models.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Tokens:</span> AI text is sampled into tokens. A 1,000-token prompt is a 1,000-sample buffer. <span class="rf-analogy">(Analogy: IQ Samples)</span></p>
+                <p><span class="font-bold text-white">Context Window:</span> The observation buffer size. If too small, coherence is lost. <span class="rf-analogy">(Analogy: FFT Window Size)</span></p>
+                <p><span class="font-bold text-white">Tradeoffs:</span> Local (Privacy/No Cost) vs Cloud (Speed/Massive Wisdom).</p>
             </div>
-        </section>
 
-        <hr class="border-slate-700">
-
-        <!-- Phase 1 -->
-        <section id="phase1" class="phase-card p-8 rounded-xl space-y-6">
-            <h2 class="text-3xl">Phase 1: The Foundation</h2>
-            <h3 class="text-xl text-sky-400 italic">Subject: Inference, Tokens, and the Physical Layer of AI</h3>
-            <p>Master the mechanics of how data moves from your hardware to the model and back.</p>
-            <div class="bg-black/50 p-4 rounded border-l-2 border-sky-500">
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: LABS/benchmark_inference.py</h4>
-                <p class="text-sm text-slate-300">Run this to measure your Tokens Per Second (t/s). Expect ~19 t/s on an RTX 3080 Ti.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h4 class="text-sky-400 font-bold">Key Terminology</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><span class="glossary-term">Token:</span> Atomic unit of data. <span class="rf-analogy">(IQ Sample)</span></li>
-                        <li><span class="glossary-term">Context Window:</span> Observation buffer. <span class="rf-analogy">(FFT Window)</span></li>
-                    </ul>
-                </div>
-                <div class="success-box">
-                    <h4 class="text-green-400 font-bold">Success Criteria</h4>
-                    <p class="text-sm">Benchmarked local inference > 10 t/s.</p>
-                </div>
+                <pre>Generation Prompt: "Write a Python script to benchmark a local LM Studio inference server. Calculate Tokens Per Second (t/s) by dividing completion_tokens by duration."</pre>
             </div>
         </section>
 
-        <!-- Phase 3 -->
-        <section id="phase3" class="phase-card p-8 rounded-xl space-y-6">
-            <h2 class="text-3xl">Phase 3: The Hand (Agency)</h2>
-            <h3 class="text-xl text-sky-400 italic">Subject: Function Calling and System Directives</h3>
-            <p>Give the AI "Hands" to touch your terminal and filesystem.</p>
-            <div class="bg-black/50 p-4 rounded border-l-2 border-sky-500">
+        <!-- PHASE 2 -->
+        <section id="phase2" class="card">
+            <h2 class="text-3xl mb-2">Phase 2: The Librarian (RAG)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Vector Embeddings and Semantic Retrieval</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Explain Vector Embeddings as mathematical representations of meaning.</li>
+                <li>Implement a persistent Vector Database (ChromaDB).</li>
+                <li>Analyze distance scores to filter relevant information from noise.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Embeddings:</span> Turns text into a 768-dimensional signature. <span class="rf-analogy">(Analogy: Spectral Signature)</span></p>
+                <p><span class="font-bold text-white">Cosine Similarity:</span> Measuring the angle between vectors. <span class="rf-analogy">(Analogy: Correlation Coefficient)</span></p>
+                <p><span class="font-bold text-white">Vector DB:</span> A spatial map of a library. Instead of a barcode, you search for a "region" of meaning.</p>
+            </div>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
+                <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: LABS/store_memories.py</h4>
+                <pre>Generation Prompt: "Create a Python script using chromadb to store RF sentences as vectors. Query the collection using conceptual search like 'How do I run simulations on a GPU?'"</pre>
+            </div>
+        </section>
+
+        <!-- PHASE 3 -->
+        <section id="phase3" class="card">
+            <h2 class="text-3xl mb-2">Phase 3: The Hand (Agency)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Function Calling and System Directives</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Define "Function Calling" and JSON signaling.</li>
+                <li>Apply System Directives to "Anchor" the AI and prevent drift.</li>
+                <li>Construct a Multi-Tool Agent capable of autonomous sequential tasks.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Motor Cortex:</span> The AI generates a JSON command; your code performs the action. <span class="rf-analogy">(Analogy: Command Logic to USRP)</span></p>
+                <p><span class="font-bold text-white">Anchoring:</span> Keeping the AI focused using a fixed System Prompt. <span class="rf-analogy">(Analogy: Frequency Locking)</span></p>
+                <p><span class="font-bold text-white">Defensive Parsing:</span> Using string indexing to extract valid JSON from model "word salad."</p>
+            </div>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
                 <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: LABS/agent_multitool.py</h4>
-                <p class="text-sm text-slate-300">Build an agent that creates a script and executes it autonomously.</p>
+                <pre>Generation Prompt: "Build an autonomous agent loop. The agent must create a file, run it in the terminal, and verify the output autonomously."</pre>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h4 class="text-sky-400 font-bold">Key Terminology</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><span class="glossary-term">System Directive:</span> High-priority behavior rules.</li>
-                        <li><span class="glossary-term">Anchoring:</span> Preventing context drift.</li>
-                    </ul>
+        </section>
+
+        <!-- PHASE 4 -->
+        <section id="phase4" class="card">
+            <h2 class="text-3xl mb-2">Phase 4: The Bridge (MCP)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Standardized Tool Integration and Security</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Explain MCP as the "USB" of AI tools.</li>
+                <li>Implement Sandboxing and Human-in-the-Loop (HITL) safety.</li>
+                <li>Expose local hardware metrics via a standardized MCP server.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Standardization:</span> Stop hard-wiring tools. Use MCP servers that "Publish" their capabilities. <span class="rf-analogy">(Analogy: VITA 49 Standard)</span></p>
+                <p><span class="font-bold text-white">Sandboxing:</span> Restricting AI access to safe folders. <span class="rf-analogy">(Analogy: Galvanic Isolation)</span></p>
+                <p><span class="font-bold text-white">JSON-RPC:</span> The packet protocol used for the Client-Server handshake.</p>
+            </div>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
+                <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: LABS/nexus_hardware_server.py</h4>
+                <pre>Generation Prompt: "Write a custom MCP Server in Python using the `mcp` library to expose GPU VRAM usage via nvidia-smi."</pre>
+            </div>
+        </section>
+
+        <!-- PHASE 5 -->
+        <section id="phase5" class="card">
+            <h2 class="text-3xl mb-2">Phase 5: The Rig (Harness Engineering)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Building Robust Infrastructural Wrappers</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Differentiate between the AI "Brain" and the Harness "Body."</li>
+                <li>Implement a Cognitive Reflex Loop for self-correction.</li>
+                <li>Construct an Integration Harness for deterministic system actions.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Harnessing:</span> Building the "Test Rig" that holds the AI in place. <span class="rf-analogy">(Analogy: Dynamic Engine Dynamometer)</span></p>
+                <p><span class="font-bold text-white">Reflexive Reasoning:</span> Forcing the AI to critique its own work before presenting it. <span class="rf-analogy">(Analogy: Control System Feedback)</span></p>
+                <p><span class="font-bold text-white">Data Transduction:</span> Converting probabilistic thoughts into strict C++/Python commands.</p>
+            </div>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
+                <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: LABS/reflex_harness.py</h4>
+                <pre>Generation Prompt: "Implement a reflex harness that generates a draft, critiques it for RF physics errors, and then outputs a finalized bulletproof version."</pre>
+            </div>
+        </section>
+
+        <!-- PHASE 6 -->
+        <section id="phase6" class="card">
+            <h2 class="text-3xl mb-2">Phase 6: The Council (Orchestration)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Multi-Agent Systems and the Blackboard Protocol</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Manage multi-agent swarms using specialized personas.</li>
+                <li>Apply the Blackboard Protocol (AGENTS.md) for cross-agent sync.</li>
+                <li>Implement an Evaluation Layer (Evals) to measure agent performance.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Specialization:</span> Two 35B models (Architect/Reviewer) beat one single model. <span class="rf-analogy">(Analogy: ATE Signal Gen + Analyzer sync)</span></p>
+                <p><span class="font-bold text-white">Blackboard (AGENTS.md):</span> A shared source of truth where agents "sign-in" and "sign-out." <span class="rf-analogy">(Analogy: Shared Lab Notebook)</span></p>
+                <p><span class="font-bold text-white">Evals:</span> Validation against "Ground Truth" data.</p>
+            </div>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
+                <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: LABS/nexus_orchestrator.py</h4>
+                <pre>Generation Prompt: "Build an orchestrator that manages an Architect and Reviewer persona, using AGENTS.md as the persistent project blackboard."</pre>
+            </div>
+        </section>
+
+        <!-- PHASE 7 -->
+        <section id="phase7" class="card">
+            <h2 class="text-3xl mb-2">Phase 7: The Master (Skills)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Skill Engineering and Autonomous Agents</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Master "Skill Engineering" using procedural Markdown manuals.</li>
+                <li>Configure OpenCode for project-wide autonomous reasoning.</li>
+                <li>Implement "Skill Injection" to bypass model knowledge cutoffs.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Skill Engineering:</span> Upgrading an AI's brain with a runtime "Manual." <span class="rf-analogy">(Analogy: FPGA Bitstream loading)</span></p>
+                <p><span class="font-bold text-white">OpenCode:</span> Terminal-native autonomous agents using Plan-Act-Validate cycles. <span class="rf-analogy">(Analogy: Autonomous ATE Suite)</span></p>
+            </div>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
+                <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: SKILLS/nexus-hardware.md</h4>
+                <pre>Generation Prompt: "Write a Markdown 'Skill' document that defines the 12GB VRAM constraints of an RTX 3080 Ti and provides expert GPU monitoring workflows."</pre>
+            </div>
+        </section>
+
+        <!-- PHASE 9 -->
+        <section id="phase9" class="card">
+            <h2 class="text-3xl mb-2">Phase 9: The Forge (Team Engineering)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: Maximizing Tiered Hardware (RAM vs VRAM)</p>
+            
+            <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+            <ul class="objective-list space-y-2 mb-8">
+                <li>Design a Hybrid Architecture balancing VRAM (Speed) and System RAM (Depth).</li>
+                <li>Implement the Dispatcher Pattern (1B model router).</li>
+                <li>Automate commit quality with Git Hook AI Audits.</li>
+            </ul>
+
+            <h3 class="text-xl mb-4">📖 Technical Deep Dive</h3>
+            <div class="space-y-4 text-slate-300">
+                <p><span class="font-bold text-white">Tiered Memory:</span> Dev (VRAM/14B) vs Architect (RAM/70B). <span class="rf-analogy">(Analogy: Real-time FPGA vs Post-process CPU)</span></p>
+                <p><span class="font-bold text-white">Dispatcher (1B):</span> A lightning-fast "Pre-Selector" routing intent in <200ms.</p>
+                <p><span class="font-bold text-white">Git Gate:</span> Enforcing a 70B Reviewer audit on every local code commit.</p>
+            </div>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
+                <h4 class="text-sky-400 font-bold mb-2">🧪 Lab Reference: LABS/vanguard_manager.py</h4>
+                <pre>Generation Prompt: "Build a Tri-Tier Manager. Route Tactical tasks to a GPU model and Strategic tasks to a high-parameter RAM model. Sync via AGENTS.md."</pre>
+            </div>
+        </section>
+
+        <!-- ROADMAP -->
+        <section id="roadmap" class="card border-yellow-500/30">
+            <h2 class="text-4xl text-yellow-500 mb-8">🚀 Advanced Mastery Roadmap</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div class="p-4 bg-slate-800/50 rounded">
+                    <h4 class="text-yellow-500 font-bold">10. The Eye (VLM)</h4>
+                    <p class="text-slate-400">Analyzing RF signal plots and GNU Radio screenshots.</p>
                 </div>
-                <div class="success-box">
-                    <h4 class="text-green-400 font-bold">Success Criteria</h4>
-                    <p class="text-sm">Agent completed a closed-loop Create-Run-Verify task.</p>
+                <div class="p-4 bg-slate-800/50 rounded">
+                    <h4 class="text-yellow-500 font-bold">11. The Evolver</h4>
+                    <p class="text-slate-400">Self-building agentic tools and recursive upgrades.</p>
+                </div>
+                <div class="p-4 bg-slate-800/50 rounded">
+                    <h4 class="text-yellow-500 font-bold">15. Industrial MCP</h4>
+                    <p class="text-slate-400">Scaling toolchains with SSE and remote protocols.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Roadmap -->
-        <section id="roadmap" class="p-8 bg-sky-900/20 border border-sky-500/30 rounded-lg">
-            <h2 class="text-3xl text-sky-400 mb-6">🚀 Future Roadmap (Phases 9-15)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="p-4 bg-slate-800 rounded">
-                    <span class="text-yellow-400 font-bold">09. The Eye</span>
-                    <p class="text-xs mt-2">Vision-Language Models for RF diagram analysis.</p>
-                </div>
-                <div class="p-4 bg-slate-800 rounded">
-                    <span class="text-yellow-400 font-bold">10. The Evolver</span>
-                    <p class="text-xs mt-2">Self-building tools and recursive agent upgrades.</p>
-                </div>
-                <div class="p-4 bg-slate-800 rounded">
-                    <span class="text-yellow-400 font-bold">15. Infrastructure</span>
-                    <p class="text-xs mt-2">Industrial-scale MCP Toolchains and SSE.</p>
-                </div>
-            </div>
-        </section>
-
-        <footer class="text-center py-10 text-slate-500 text-sm">
+        <footer class="text-center py-20 text-slate-500 text-sm">
             Project Nexus &bull; Lead AI Research Mentor &bull; Michael Mann &bull; 2026-03-22
         </footer>
 
     </main>
 
+    <script>
+        // Simple active nav highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.onscroll = () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active-nav');
+                }
+            });
+        };
+    </script>
 </body>
 </html>
