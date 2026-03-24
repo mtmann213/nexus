@@ -47,7 +47,7 @@
             </div>
 
             <div>
-                <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">The Curriculum</h3>
+                <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4">Curriculum</h3>
                 <ul class="space-y-1">
                     <li><a href="#phase1" class="nav-link">01. The Foundation</a></li>
                     <li><a href="#phase2" class="nav-link">02. The Librarian</a></li>
@@ -58,6 +58,7 @@
                     <li><a href="#phase7" class="nav-link">07. The Master</a></li>
                     <li><a href="#phase8" class="nav-link">08. The Voice</a></li>
                     <li><a href="#phase9" class="nav-link">09. The Forge</a></li>
+                    <li><a href="#phase10" class="nav-link">10. The Link</a></li>
                 </ul>
             </div>
 
@@ -88,7 +89,7 @@
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-lg">
                         <span class="text-sky-400 font-bold block mb-1">Backend Inference:</span>
-                        <p class="text-sm">LM Studio (Local Qwen 35B) / Groq Cloud</p>
+                        <p class="text-sm">LM Studio (Local 35B) / Groq Cloud</p>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-lg">
                         <span class="text-sky-400 font-bold block mb-1">Standardized Protocol:</span>
@@ -156,13 +157,6 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Tokens:</span> AI text is sampled into tokens. A 1,000-token prompt is a 1,000-sample buffer. <span class="rf-analogy">(Analogy: IQ Samples)</span></p>
-                <p><span class="font-bold text-white">Context Window:</span> The observation buffer size. If too small, coherence is lost. <span class="rf-analogy">(Analogy: FFT Window Size)</span></p>
-                <p><span class="font-bold text-white">Throughput:</span> Baseline of ~19 t/s established for 35B model. <span class="rf-analogy">(Analogy: Baud Rate)</span></p>
-            </div>
-
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
             <table class="glossary-table">
                 <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
@@ -204,13 +198,6 @@
                     <h3 class="text-xl text-green-400 mb-2">✅ Success Criteria</h3>
                     <p class="text-sm">Database finds "Sionna" when searching for "graphics card simulations."</p>
                 </div>
-            </div>
-
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Embeddings:</span> Turns text into a 768-dimensional signature. <span class="rf-analogy">(Analogy: Spectral Signature)</span></p>
-                <p><span class="font-bold text-white">Cosine Similarity:</span> Measuring the angle between vectors. <span class="rf-analogy">(Analogy: Correlation Coefficient)</span></p>
-                <p><span class="font-bold text-white">Vector DB:</span> A spatial map of a library. Instead of a barcode, you search for a "region" of meaning.</p>
             </div>
 
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
@@ -255,13 +242,6 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Motor Cortex:</span> The AI generates a JSON command; your code performs the action. <span class="rf-analogy">(Analogy: Command Logic to USRP)</span></p>
-                <p><span class="font-bold text-white">Anchoring:</span> Keeping the AI focused using a fixed System Prompt. <span class="rf-analogy">(Analogy: Frequency Locking)</span></p>
-                <p><span class="font-bold text-white">Defensive Parsing:</span> Using string indexing to extract valid JSON from model "word salad."</p>
-            </div>
-
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
             <table class="glossary-table">
                 <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
@@ -304,13 +284,6 @@
                 </div>
             </div>
 
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Standardization:</span> Stop hard-wiring tools. Use MCP servers that "Publish" their capabilities. <span class="rf-analogy">(Analogy: VITA 49 Standard)</span></p>
-                <p><span class="font-bold text-white">Sandboxing:</span> Restricting AI access to safe folders. <span class="rf-analogy">(Analogy: Galvanic Isolation)</span></p>
-                <p><span class="font-bold text-white">JSON-RPC:</span> The packet protocol used for the Client-Server handshake.</p>
-            </div>
-
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
             <table class="glossary-table">
                 <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
@@ -350,13 +323,6 @@
                     <h3 class="text-xl text-green-400 mb-2">✅ Success Criteria</h3>
                     <p class="text-sm">`reflex_harness.py` catches a syntax or math error in its own first draft.</p>
                 </div>
-            </div>
-
-            <h3 class="text-xl mt-10 mb-4 underline">📖 Technical Deep Dive</h3>
-            <div class="space-y-4 text-slate-300 text-sm">
-                <p><span class="font-bold text-white">Harnessing:</span> Building the "Test Rig" that holds the AI in place. <span class="rf-analogy">(Analogy: Dynamic Engine Dynamometer)</span></p>
-                <p><span class="font-bold text-white">Reflexive Reasoning:</span> Forcing the AI to critique its own work before presenting it. <span class="rf-analogy">(Analogy: Control System Feedback)</span></p>
-                <p><span class="font-bold text-white">Data Transduction:</span> Converting probabilistic thoughts into strict machine commands.</p>
             </div>
 
             <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
@@ -428,9 +394,9 @@
                 <div>
                     <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
                     <ul class="objective-list space-y-2 text-sm text-slate-300">
-                        <li>Master "Skill Engineering" using Markdown manuals.</li>
+                        <li>Upgrade an AI's brain with runtime Procedural Manuals.</li>
                         <li>Configure OpenCode for autonomous reasoning.</li>
-                        <li>Implement "Skill Injection" to bypass cutoffs.</li>
+                        <li>Utilize Skill Libraries for specialized RF expertise.</li>
                     </ul>
                 </div>
                 <div class="success-box">
@@ -495,11 +461,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div>
                     <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
-                    <ul class="objective-list space-y-2 text-sm text-slate-300">
-                        <li>Design a Hybrid Architecture balancing VRAM and RAM.</li>
-                        <li>Implement the Dispatcher Pattern (1B model router).</li>
-                        <li>Automate commit quality with AI-driven Git Gates.</li>
-                    </ul>
+                    <li>Design a Hybrid Architecture balancing VRAM and RAM.</li>
+                    <li>Implement the Dispatcher Pattern (1B model router).</li>
+                    <li>Automate commit quality with AI-driven Git Gates.</li>
                 </div>
                 <div class="success-box">
                     <h3 class="text-xl text-green-400 mb-2">✅ Success Criteria</h3>
@@ -522,27 +486,61 @@
             </div>
         </section>
 
+        <!-- PHASE 10 -->
+        <section id="phase10" class="card">
+            <h2 class="text-3xl mb-2">Phase 10: The Link (Local Network Access)</h2>
+            <p class="text-sky-400 italic mb-8">Subject: LAN Bridging and Mobile Device Integration</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-xl mb-4">🎯 Learning Objectives</h3>
+                    <ul class="objective-list space-y-2 text-sm text-slate-300">
+                        <li>Bridge the desktop "Base Station" to mobile "User Equipment."</li>
+                        <li>Configure local firewalls for AI port visibility.</li>
+                        <li>Deploy mobile-responsive web interfaces over local IP.</li>
+                    </ul>
+                </div>
+                <div class="success-box">
+                    <h3 class="text-xl text-green-400 mb-2">✅ Success Criteria</h3>
+                    <p class="text-sm">Student sends a prompt from a mobile phone and receives a response from the 3080 Ti.</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl mt-10 mb-4 underline">📚 Glossary</h3>
+            <table class="glossary-table">
+                <tr><th>Term</th><th>Definition</th><th>RF Analogy</th></tr>
+                <tr><td>Local IP</td><td>Device address within the home network.</td><td>Station ID</td></tr>
+                <tr><td>Port</td><td>Logical data gate (e.g., 1234).</td><td>Channel Number</td></tr>
+                <tr><td>Tailscale</td><td>(Bonus) Encrypted mesh VPN tunnel.</td><td>Secure Microwave Link</td></tr>
+            </table>
+
+            <div class="bg-black/50 p-6 rounded-lg mt-10 border border-sky-500/30">
+                <h4 class="text-sky-400 font-bold mb-4">🧪 Lab: LABS/local_link_test.sh</h4>
+                <pre>Prompt: "Write a bash script that provides a URL/QR code for a mobile device to test connection to the AI Base Station."</pre>
+            </div>
+        </section>
+
         <!-- ROADMAP -->
         <section id="roadmap" class="card border-yellow-500/30">
-            <h2 class="text-4xl text-yellow-500 mb-8 border-b border-yellow-500 pb-4">🚀 Advanced Mastery Roadmap (10-15)</h2>
+            <h2 class="text-4xl text-yellow-500 mb-8 border-b border-yellow-500 pb-4">🚀 Advanced Mastery Roadmap (11-16)</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
                 <div class="p-4 bg-slate-800/50 rounded">
-                    <h4 class="text-yellow-500 font-bold underline mb-2">10. The Eye (Vision)</h4>
+                    <h4 class="text-yellow-500 font-bold underline mb-2">11. The Eye (Vision)</h4>
                     <p class="text-slate-400 mb-2">Analyze RF signal plots and GNU Radio screenshots.</p>
                     <p>Tech: Llama-3.2-Vision, Moondream2.</p>
                 </div>
                 <div class="p-4 bg-slate-800/50 rounded">
-                    <h4 class="text-yellow-500 font-bold underline mb-2">11. The Evolver</h4>
+                    <h4 class="text-yellow-500 font-bold underline mb-2">12. The Evolver</h4>
                     <p class="text-slate-400 mb-2">Self-building tools where AI writes its own updates.</p>
                     <p>Tech: Meta-programming, Recursive Loops.</p>
                 </div>
                 <div class="p-4 bg-slate-800/50 rounded">
-                    <h4 class="text-yellow-500 font-bold underline mb-2">14. The Architect</h4>
+                    <h4 class="text-yellow-500 font-bold underline mb-2">15. The Architect</h4>
                     <p class="text-slate-400 mb-2">Advanced agent steering and logic verification.</p>
                     <p>Tech: PydanticAI, Logic Evals.</p>
                 </div>
                 <div class="p-4 bg-slate-800/50 rounded">
-                    <h4 class="text-yellow-500 font-bold underline mb-2">15. Infrastructure</h4>
+                    <h4 class="text-yellow-500 font-bold underline mb-2">16. Infrastructure</h4>
                     <p class="text-slate-400 mb-2">Industrial-grade MCP with remote tool management.</p>
                     <p>Tech: MCP SSE, remote execution.</p>
                 </div>
@@ -553,7 +551,7 @@
         <section id="resume" class="card">
             <h2 class="text-4xl mb-8 border-b border-sky-500 pb-4 text-white">📍 Session Resume</h2>
             <div class="bg-slate-800/30 p-6 rounded-lg">
-                <p class="font-bold text-sky-400 mb-4 text-lg">Current State: Phase 1-9 Infrastructure Complete.</p>
+                <p class="font-bold text-sky-400 mb-4 text-lg">Current State: Phase 1-10 Infrastructure Complete.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                     <ul class="list-disc ml-6 space-y-1 text-slate-400">
                         <li><span class="text-white">Workspace:</span> Organized into `LABS/`, `CURRICULUM/`, and `SKILLS/`.</li>
@@ -561,7 +559,7 @@
                         <li><span class="text-white">Documentation:</span> Full HTML Portal replacement for MD files.</li>
                     </ul>
                     <ul class="list-disc ml-6 space-y-1 text-slate-400">
-                        <li><span class="text-white">Next Milestone:</span> Implementation of local STT/TTS (Phase 8).</li>
+                        <li><span class="text-white">Next Milestone:</span> Vision-Language Model integration (Phase 11).</li>
                         <li><span class="text-white">Hardware Health:</span> 3080 Ti verified at 20 t/s throughput.</li>
                         <li><span class="text-white">Neutrality:</span> Using `AGENTS.md` for portability.</li>
                     </ul>

@@ -26,7 +26,7 @@ You are the **Lead AI Research Mentor**. Your role is to:
 *   **Phase 7: The Master (Skills & OpenCode):** Mastering "Skill Engineering" and high-level autonomous terminal agents.
 *   **Phase 8: The Voice (Multimodality):** Implementing local STT (Whisper) and TTS (Piper) for low-latency feedback.
 *   **Phase 9: The Forge (Local Team Engineering):** Maximizing VRAM/RAM tiers. Implementing the **Dispatcher Pattern** (1B model router).
-*   **Phase 10: The Link (Remote Access):** Bridging the Core (Desktop) to the Edge (Mobile). Implementing secure tunneling via **Tailscale** to control the PICC from any device.
+*   **Phase 10: The Link (Network Access):** Bridging the Base Station (Desktop) to the User Equipment (Mobile/Tablet) over the local network. Implementing mobile-ready web interfaces and local port visibility. (Bonus: Secure remote tunneling via **Tailscale**).
 *   **Phase 11 - 16 (Advanced Mastery):** Vision-Language Models (VLM), Self-Building Tools, IQ Intelligence, Web Scouting, Agentic Dashboards, Advanced Agent Steering, and Industrial-Scale MCP Infrastructure.
 
 ## 5. The Living Journal (Documentation Requirement)

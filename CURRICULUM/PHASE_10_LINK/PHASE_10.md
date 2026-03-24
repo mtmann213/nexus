@@ -1,33 +1,32 @@
-# Phase 10: The Link (Remote Access)
-## Subject: Secure Tunneling and Edge-to-Core Architecture
+# Phase 10: The Link (Local Network Access)
+## Subject: LAN Bridging and Mobile Device Integration
 
 ### 🎯 Learning Objectives
 By the end of this phase, the trainee will be able to:
-1. **Design** a remote access strategy that connects mobile "Edge" devices to the desktop "Core."
-2. **Implement** a private mesh network using **Tailscale** to bypass complex port forwarding.
-3. **Configure** LM Studio and other local servers to listen on the Tailscale interface.
-4. **Deploy** a mobile-friendly frontend (e.g., Open WebUI or a custom Streamlit app) to interact with the PICC.
-5. **Analyze** the security implications of "Reverse Proxies" and encrypted tunnels.
+1. **Bridge** the gap between the high-power Desktop "Base Station" and mobile "User Equipment" (Phone/Tablet) over the local network.
+2. **Configure** local firewalls (ufw/Windows Firewall) to allow traffic on specific AI ports (1234, 8080).
+3. **Optimize** LM Studio settings for "Serve on Local Network" visibility.
+4. **Deploy** a mobile-responsive web frontend (e.g., Open WebUI or a custom Streamlit app) accessible via local IP.
+5. **Implement** (Bonus) a secure remote tunnel using **Tailscale** for access outside the home network.
 
 ---
 
 ### 📖 Technical Deep Dive
 
-#### 1. The Air-Gap Problem (Core vs. Edge)
-Your 3080 Ti has the "Guts," but it is physically anchored to your desk. To make the PICC truly useful, it must be accessible from your "Edge" devices (Phone/Tablet). 
-* **The Challenge:** Exposing your PC to the open internet via port forwarding is a major security risk (the "Exploit Surface" becomes too large).
-* **The Solution:** A **Mesh VPN** (like Tailscale). It creates an encrypted "Virtual Ethernet Cable" between your phone and your desktop, regardless of where they are in the world.
+#### 1. The Base Station vs. User Equipment (LAN Topology)
+In RF, the Base Station handles the heavy signal processing, while the User Equipment (UE) provides the interface. 
+* **The Desktop:** Your 3080 Ti is the signal processor. It hosts the LLMs and the Blackboard (`AGENTS.md`).
+* **The UE:** Your phone or tablet acts as the "Remote Display." 
+* **The Link:** We use the local Wi-Fi network as our primary data link. This requires knowing your desktop's local IP (e.g., `192.168.1.50`).
 
-#### 2. Networking Topology (The Radio Link)
-In RF, you manage the Link Budget between a Base Station and User Equipment (UE). In Phase 10, we do the same for data:
-* **The Base Station (Desktop):** Runs the LLMs and the MCP servers.
-* **The UE (Phone):** Runs a lightweight web browser or terminal app.
-* **The Link (Tailscale):** Handles the encryption and routing.
+#### 2. Port Visibility & Firewalls
+By default, most operating systems block incoming connections to protect you. To make the Link work, you must open "Ports":
+* **Port 1234:** The standard entry point for LM Studio.
+* **The Fix:** We learn to set up "Allow Rules" that specifically permit your phone's IP to talk to your desktop's AI ports.
 
-#### 3. Mobile UI Strategies
-Once the link is established, you need a way to "See" the AI.
-* **API Access:** You can point a mobile LLM app (like "ChatRTX" or "Enchanted") to your Tailscale IP.
-* **Web Interface:** Running **Open WebUI** or a custom **Streamlit Dashboard** provides a professional, mobile-responsive experience.
+#### 3. 🌟 Bonus: The Long-Range Link (Tailscale)
+Once the local link is solid, we can extend the range.
+* **The Tech:** **Tailscale** creates an encrypted "Virtual Ethernet Cable." It allows your phone to talk to your desktop as if it were on the local Wi-Fi, even when you are on a cellular data link (5G).
 
 ---
 
@@ -35,32 +34,32 @@ Once the link is established, you need a way to "See" the AI.
 
 | Term | Definition | RF Engineering Analogy |
 | :--- | :--- | :--- |
-| **Mesh VPN** | A decentralized network where every device connects directly to every other device. | A **Peer-to-Peer** mesh network. |
-| **Tailscale** | A zero-config VPN based on the WireGuard protocol. | A **Secure Microwave Link**. |
-| **Reverse Proxy** | A server that sits in front of other servers and forwards client requests. | A **Signal Repeater** or Router. |
-| **Edge Device** | Low-power mobile hardware used for interaction. | **User Equipment (UE)**. |
-| **Core Workstation** | High-power hardware used for heavy compute. | The **Baseband Unit (BBU)**. |
+| **Local IP** | The address of your device within your home network. | A **Station ID** in a local net. |
+| **Port** | A specific logical "gate" used for data (e.g., 1234). | A **Channel Number** or Frequency Bin. |
+| **LAN** | Local Area Network; your home/office Wi-Fi and Ethernet. | A **Local Cell** or Pico-cell. |
+| **Firewall** | A security system that controls incoming/outgoing traffic. | An **RF Band-pass Filter**. |
+| **Tunneling** | Encapsulating data to move it across a network securely. | **Sub-carrier Modulation**. |
 
 ---
 
 ### ❓ Comprehension Questions
-1. Why is port forwarding considered "Dangerous" for a local AI lab?
-2. How does Tailscale allow your phone to talk to your desktop without a public IP address?
-3. What is the benefit of a "Reverse Proxy" when managing multiple local servers (e.g., LM Studio on 1234 and MCP on 8080)?
-4. If you are on a cellular connection (LTE/5G), how does "Jitter" impact your remote AI session?
-5. How would you "Lock Down" your PICC so only authorized team members can access it remotely?
+1. Why does "localhost" only work on the desktop itself and not from your phone?
+2. What is the command to find your local IP address on a Linux system?
+3. How does a firewall act like a "Band-pass Filter" for network traffic?
+4. What is the security risk of opening port 1234 to the *entire* internet instead of just your local network?
+5. (Bonus) How does Tailscale solve the problem of "NAT Traversal"?
 
 ---
 
-### 🧪 Lab Reference: (Planned) `LABS/remote_bridge.sh`
+### 🧪 Lab Reference: `LABS/local_link_test.sh`
 
 #### What to expect:
-(This lab involves setup on two devices). You will install Tailscale on your Ubuntu host and your Phone. You will then "Ping" your desktop from your phone and attempt to load the LM Studio API endpoint in your mobile browser. Success is confirmed when your phone can trigger an inference run on your 3080 Ti.
+You will find your local IP, configure your desktop server to "Serve on Local Network," and then use your phone's browser to hit the desktop's IP address. Success is when you see the "LM Studio API" status page on your mobile device.
 
 #### Generation Prompt (for the student):
-> "Write a bash script to automate the deployment of a secure AI web interface. The script should install a mobile-friendly frontend (like Open WebUI) via Docker, configure it to connect to an LM Studio instance on a specific Tailscale IP, and set up a basic firewall to only allow traffic from the Tailscale network interface."
+> "Write a bash script that detects the local IP address of the host, checks if port 1234 is currently listening for external connections, and provides a QR code or URL that a user can scan with their phone to test the connection to the AI Base Station."
 
 ---
 
 ### ✅ Success Criteria
-* **Proof of Work:** (Planned) The student sends a prompt from their mobile phone while disconnected from local Wi-Fi, and receives a response generated by their local 3080 Ti.
+* **Proof of Work:** The student sends a prompt from a mobile browser (on the same Wi-Fi) and sees the 3080 Ti generate a response in real-time.
