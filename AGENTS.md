@@ -1,39 +1,37 @@
-# Project Agents: Project Nexus Tiered Team
+# Project Opal Vanguard: 4-Agent Final Roster (2026)
 
-## 👥 The Team Structure (Compute-Aware)
+## [Tier 0] Global Orchestrator: Gemini CLI
+- **Model:** Gemini 3 Flash / Ultra (Cloud)
+- **Role:** Global Context & Project Lighthouse.
+- **Responsibility:** Ingests massive documentation and full repo state. Routes strategic intent to local sub-agents.
 
-### 1. @dispatcher (Tier 1: VRAM)
-- **Role**: Intent Classification & Routing.
-- **Model**: Gemma 3 1B (Pinned to VRAM).
-- **Responsibility**: Instant triage. Decides if a task is TACTICAL or STRATEGIC.
+---
 
-### 2. @lead-developer (Tier 2: VRAM)
-- **Role**: Implementation & Execution.
-- **Model**: Qwen 3.5 Coder 14B (VRAM).
-- **Responsibility**: Writing code, running terminal commands, and managing file structures.
+## [Tier 1] Dispatcher: @.opencode/agent/dispatcher.md (Gemma 3 1B)
+- **Placement:** VRAM (Desktop) / RAM (Laptop)
+- **Settings:** Context: 8,192 | KV: Q4_0 | Temp: 0.0
+- **Skill:** Sub-100ms intent routing. The first line of interaction.
 
-### 3. @researcher (Tier 3: System RAM)
-- **Role**: Technical Intelligence & Documentation.
-- **Model**: Llama 3.1 8B (System RAM).
-- **Responsibility**: Scanning local docs, web search, and API summarization.
+## [Tier 2] Lead Developer: @.opencode/agent/lead-developer.md (Qwen 3.5 Coder 9B)
+- **Placement:** VRAM (3080 Ti - All Layers Offloaded)
+- **Settings:** Context: 16,384 | KV: IQ4_NL | Temp: 0.2 | Min-P: 0.05
+- **Skill:** Verbatim coding and CLI execution. Optimized for TensorFlow/Sionna syntax.
+- **Hardware Goal:** Maintain 3.5GB VRAM buffer for active simulations.
 
-### 4. @senior-architect (Tier 4: System RAM)
-- **Role**: Strategy & Senior Review.
-- **Model**: Llama 3.3 70B (System RAM - 0 GPU Layers).
-- **Responsibility**: High-level system design, complex math, and architectural audits.
+## [Tier 3] Auditor (Technical Logic): @.opencode/agent/auditor.md (Phi-4 Reasoning 14B)
+- **Placement:** System RAM (64GB)
+- **Settings:** Context: 32,768 | KV: IQ4_NL | Temp: 0.1 | Use <thinking> tags.
+- **Skill:** Complex RF math verification, Chain-of-Thought debugging, and protocol analysis.
+- **Focus:** The "Auditor" who ensures the 9B's code won't break the physics of the receiver.
 
-## 🛠️ Tech Stack & Conventions
-- **Blackboard**: This file (`AGENTS.md`) is the single source of truth for cross-agent synchronization.
-- **Optimizations**: KV Cache Quantization (INT4) and Flash Attention enabled.
-- **Protocol**: Model Context Protocol (MCP) for tool integration.
+## [Tier 4] Senior Architect: @.opencode/agent/senior-architect.md (Qwen 3.5 35B-A3B)
+- **Placement:** System RAM (64GB)
+- **Settings:** Context: 128k (MoE Efficiency) | KV: INT4 | Temp: 0.6
+- **Skill:** Strategic long-term planning and "Mixture of Experts" reasoning.
+- **Focus:** Broad system design, modulation classification architecture, and multi-file logic.
 
-## 🚦 Communication Protocol
-1. **Dispatcher Triage**: Every request starts with the @dispatcher.
-2. **Strategic Planning**: If the task is complex, @senior-architect writes the plan to this file.
-3. **Execution**: @lead-developer implements only after the plan is synchronized.
-4. **Verification**: @researcher validates API usage and @lead-developer runs tests.
+---
 
-## 📍 System State
-- **Status**: Phase 9 - The Forge (4-Agent Integration).
-- **Target Hardware**: Desktop (3080 Ti / 64GB) & Laptop (8GB / 32GB).
-- **Last Sync**: 2026-03-24 15:45:00
+## Shared Communication Protocol
+- **State File:** `CLAUDE.md` (Shared blackboard for agents).
+- **Inference Mode:** Use "Thinking/Reasoning" mode for Phi-4 and 35B-A3B; "Flash/Direct" for 9B and 1B.
