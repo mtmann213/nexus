@@ -6,6 +6,17 @@ from faster_whisper import WhisperModel
 # Phase 8: High-Speed Voice-to-Text Command
 # Goal: Capture your mic and transcribe it in < 1s for instant communication.
 
+def get_hardware_tier():
+    """Detects available hardware to choose the best Whisper device."""
+    try:
+        # Check if nvidia-smi exists and has a GPU
+        subprocess.run(["nvidia-smi"], capture_output=True, check=True)
+        print("🚀 GPU detected. Using CUDA acceleration.")
+        return "cuda", "float16"
+    except:
+        print("💻 No GPU detected (or missing drivers). Using CPU mode.")
+        return "cpu", "int8"
+
 def capture_mic(duration=5, output_file="mic_capture.wav"):
     """Uses ffmpeg to pull audio from the WSL pulse source."""
     print(f"🎙️  LISTENING ({duration}s)... Speak now.")
@@ -15,28 +26,40 @@ def capture_mic(duration=5, output_file="mic_capture.wav"):
             "ffmpeg", "-y", "-f", "pulse", "-i", "default",
             "-t", str(duration), "-ac", "1", "-ar", "16000", output_file
         ]
+        # Silencing ffmpeg output for a cleaner interface
         subprocess.run(cmd, check=True, capture_output=True)
         return True
     except Exception as e:
         print(f"❌ Mic capture failed: {e}")
+        print("💡 TIP: Ensure PulseAudio is running and bridged from Windows.")
         return False
 
 def transcribe_clip(file_path):
     """Transcribes the captured clip using local Whisper."""
-    print("👂 Transcribing...")
+    device, compute = get_hardware_tier()
+    
+    print(f"👂 Transcribing on {device.upper()}...")
     start_time = time.time()
     
-    # We use CPU mode for 100% stability in WSL
-    model = WhisperModel("tiny", device="cpu", compute_type="int8")
-    
-    segments, info = model.transcribe(file_path, beam_size=5)
-    
-    text = ""
-    for segment in segments:
-        text += segment.text + " "
-    
-    print(f"✅ Transcription complete in {time.time() - start_time:.2f}s")
-    return text.strip()
+    try:
+        model = WhisperModel("tiny", device=device, compute_type=compute)
+        segments, info = model.transcribe(file_path, beam_size=5)
+        
+        text = ""
+        for segment in segments:
+            text += segment.text + " "
+        
+        print(f"✅ Transcription complete in {time.time() - start_time:.2f}s")
+        return text.strip()
+    except Exception as e:
+        print(f"❌ Transcription error: {e}")
+        if device == "cuda":
+            print("🔄 Falling back to CPU mode...")
+            model = WhisperModel("tiny", device="cpu", compute_type="int8")
+            segments, info = model.transcribe(file_path, beam_size=5)
+            text = "".join([s.text for f in segments])
+            return text.strip()
+        return "Error in transcription."
 
 def run_voice_command():
     print("🏁 Project Nexus Voice Interface")
@@ -46,7 +69,7 @@ def run_voice_command():
         text = transcribe_clip("mic_capture.wav")
         print("\n📝 YOUR PROMPT:")
         print("=" * 30)
-        print(text)
+        print(text if text else "[No speech detected]")
         print("=" * 30)
         print("\n💡 TIP: Copy this text into your OpenCode or Gemini prompt!")
     

@@ -32,7 +32,14 @@ We use two interfaces to interact with our AI team:
 
 ---
 
-### 3. Your First Mission: The Interface Handshake
+### 3. Audio Infrastructure (For Phase 8)
+To use the Voice-to-Text interface in WSL, you must bridge your Windows microphone:
+1.  **Install ffmpeg (Linux):** `sudo apt update && sudo apt install -y ffmpeg`
+2.  **WSL Audio Bridge:** Most modern WSL versions (Windows 11) bridge PulseAudio automatically. If your mic fails, check the `TROUBLESHOOTING_AI.md`.
+
+---
+
+### 4. Your First Mission: The Interface Handshake
 Open your **OpenCode** terminal and type:
 > "Hello. You are my local developer. Confirm you can see the files in this directory."
 
