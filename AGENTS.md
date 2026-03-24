@@ -11,6 +11,12 @@
 - **Protocol:** Model Context Protocol (MCP) for tool integration.
 - **Blackboard:** This file (`AGENTS.md`) is the single source of truth for cross-agent synchronization.
 
+## 🛡️ Hardware Guardrails (RTX 3080 Ti / 64GB RAM)
+- **Safe Inference:** Maintain VRAM < 11,000MB.
+- **Critical Threshold:** > 11,500MB (Do NOT load models).
+- **Performance Target:** ~19 tokens/sec (Local 35B).
+- **Template Rule:** Strict alternating User -> Assistant patterns required.
+
 ## 🚦 Communication Protocol
 1. **Plan First:** Always define the mathematical or architectural plan in the Architect's section below before coding.
 2. **Execute:** The Developer implements only what has been architected.
