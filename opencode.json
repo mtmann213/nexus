@@ -22,6 +22,10 @@
   "agent": {
     "build": {
       "model": "lmstudio/google/gemma-3-1b",
+      "tool_choice": "required",
+      "model_settings": {
+        "stop_sequences": ["\n\n", "Question:", "Refine:"]
+      },
       "instructions": "You are the Tier-1 Dispatcher. DO NOT solve problems. For every user input, immediately analyze the intent and delegate to @.opencode/agents/lead-developer.md, @.opencode/agents/auditor.md, or @.opencode/agents/senior-architect.md using their handles. You are the gateway to the Project Opal Vanguard team."
     }
   },
