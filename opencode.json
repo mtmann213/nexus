@@ -14,5 +14,16 @@
       }
     }
   },
-  "model": "lmstudio/qwen/qwen3.5-9b"
+  "model": "lmstudio/qwen/qwen3.5-9b",
+  "agent": {
+    "senior-architect": {
+      "model": "lmstudio/qwen/qwen3.5-35b-a3b"
+    },
+    "auditor": {
+      "model": "lmstudio/microsoft/phi-4-reasoning-plus"
+    },
+    "lead-developer": {
+      "model": "lmstudio/qwen/qwen3.5-9b"
+    }
+  }
 }
