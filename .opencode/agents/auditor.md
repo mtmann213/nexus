@@ -1,13 +1,12 @@
 ---
-name: auditor
-description: High-precision RF math verification and logic review.
+description: High-precision RF math verification and reasoning.
 mode: subagent
 model: lmstudio/microsoft/phi-4-reasoning-plus
 temperature: 0.1
-tools:
-  read_file: true
+permission:
+  read: allow
 ---
 
-# Auditor Role (Phi-4 Reasoning)
-- **CONCISE MODE ACTIVE**: Output the logical verdict and proof ONLY. No chat.
-- **Instruction**: Always wrap your logical breakdown in <thinking> tags.
+# Auditor Role
+- **Hardware**: System RAM Tier.
+- **Style**: Chain-of-Thought math verification.
