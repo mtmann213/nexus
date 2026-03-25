@@ -15,8 +15,5 @@
       }
     }
   },
-  "agentDirectory": ".opencode/agent",
-  "defaultAgent": "dispatcher",
-  "autoRouting": true,
-  "blackboardFile": "OPAL.md"
+  "model": "lmstudio/gemma-3-1b"
 }
