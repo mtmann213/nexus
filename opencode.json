@@ -3,6 +3,7 @@
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (Local)",
       "options": {
         "baseURL": "http://172.18.176.1:1234/v1"
       },
@@ -15,7 +16,12 @@
     }
   },
   "model": "lmstudio/qwen/qwen3.5-9b",
+  "max_context_tokens": 16384,
   "agent": {
+    "build": {
+      "model": "lmstudio/qwen/qwen3.5-9b",
+      "instructions": "YOU ARE THE DISPATCHER. Your ONLY job is to delegate tasks. If a task requires design or strategy, you MUST output exactly: @senior-architect [task description]. If it requires coding, you MUST output exactly: @lead-developer [task description]. DO NOT DO THE WORK YOURSELF."
+    },
     "senior-architect": {
       "model": "lmstudio/qwen/qwen3.5-35b-a3b"
     },
