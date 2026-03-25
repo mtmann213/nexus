@@ -15,5 +15,9 @@
       }
     }
   },
-  "model": "lmstudio/google/gemma-3-1b"
+  "model": "lmstudio/google/gemma-3-1b",
+  "agentSettings": {
+    "agentDirectory": ".opencode/agent",
+    "autoRouting": true
+  }
 }
