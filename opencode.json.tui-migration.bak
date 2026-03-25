@@ -31,5 +31,6 @@
     "read": "allow",
     "skill": "allow"
   },
-  "autoupdate": true
+  "autoupdate": true,
+  "theme": "opencode"
 }
