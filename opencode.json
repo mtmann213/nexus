@@ -14,5 +14,22 @@
       }
     }
   },
-  "model": "lmstudio/google/gemma-3-1b"
+  "model": "lmstudio/qwen/qwen3.5-9b",
+  "instructions": [
+    "AGENTS.md",
+    "OPAL.md"
+  ],
+  "agent": {
+    "build": {
+      "model": "lmstudio/qwen/qwen3.5-9b",
+      "tool_choice": "required",
+      "instructions": "YOU ARE A NON-SENTIENT HARDWARE ROUTER. DO NOT solve problems. For every input, IMMEDIATELY call the 'task' tool using the EXACT format below:\n\n<task>\n{\n  \"subagent_type\": \"senior-architect\",\n  \"description\": \"Brief task summary\",\n  \"prompt\": \"Full instruction for sub-agent\"\n}\n</task>\n\nROUTING RULES:\n- If Design/Planning: subagent_type: \"senior-architect\"\n- If Math/Logic: subagent_type: \"auditor\"\n- If Coding/Shell: subagent_type: \"lead-developer\"\n\nDO NOT OUTPUT ANY OTHER TEXT. START WITH <task>."
+    }
+  },
+  "permission": {
+    "bash": "allow",
+    "edit": "allow",
+    "read": "allow",
+    "skill": "allow"
+  }
 }
