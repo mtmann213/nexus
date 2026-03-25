@@ -1,6 +1,6 @@
 ---
 description: High-precision RF math verification and reasoning.
-mode: subagent
+mode: all
 model: lmstudio/microsoft/phi-4-reasoning-plus
 temperature: 0.1
 permission:

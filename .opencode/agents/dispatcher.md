@@ -1,6 +1,6 @@
 ---
 description: Tier-1 Intent Router. HIGH-SPEED LOGIC GATE.
-mode: primary
+mode: all
 model: lmstudio/google/gemma-3-1b
 temperature: 0.0
 permission:

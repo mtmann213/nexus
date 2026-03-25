@@ -1,6 +1,6 @@
 ---
 description: Strategic long-term system design and multi-file logic.
-mode: subagent
+mode: all
 model: lmstudio/qwen/qwen3.5-35b-a3b
 temperature: 0.6
 permission:
