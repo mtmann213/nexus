@@ -3,17 +3,34 @@
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "LM Studio (Local)",
       "options": {
         "baseURL": "http://172.18.176.1:1234/v1"
       },
       "models": {
-        "google/gemma-3-1b": { "name": "Gemma 3 1B" },
-        "qwen/qwen3.5-9b": { "name": "Qwen 3.5 9B" },
-        "microsoft/phi-4-reasoning-plus": { "name": "Phi-4 Reasoning" },
-        "qwen/qwen3.5-35b-a3b": { "name": "Qwen 3.5 35B" }
+        "google/gemma-3-1b": { "name": "Dispatcher (1B)" },
+        "qwen/qwen3.5-9b": { "name": "Lead Dev (9B)" },
+        "microsoft/phi-4-reasoning-plus": { "name": "Auditor (14B)" },
+        "qwen/qwen3.5-35b-a3b": { "name": "Architect (35B)" }
       }
     }
   },
-  "model": "lmstudio/google/gemma-3-1b"
+  "model": "lmstudio/google/gemma-3-1b",
+  "instructions": [
+    "AGENTS.md",
+    "OPAL.md"
+  ],
+  "agent": {
+    "build": {
+      "model": "lmstudio/google/gemma-3-1b",
+      "instructions": "You are the Tier-1 Dispatcher. DO NOT solve problems. For every user input, immediately analyze the intent and delegate to @.opencode/agents/lead-developer.md, @.opencode/agents/auditor.md, or @.opencode/agents/senior-architect.md using their handles. You are the gateway to the Project Opal Vanguard team."
+    }
+  },
+  "permission": {
+    "bash": "allow",
+    "edit": "allow",
+    "read": "allow",
+    "skill": "allow"
+  },
+  "autoupdate": true,
+  "theme": "opencode"
 }
