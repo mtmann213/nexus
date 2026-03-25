@@ -14,5 +14,5 @@
       }
     }
   },
-  "model": "lmstudio/google/gemma-3-1b"
+  "model": "lmstudio/qwen/qwen3.5-9b"
 }
