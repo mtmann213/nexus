@@ -2,7 +2,7 @@
 name: dispatcher
 description: Intent classification and task routing.
 mode: subagent
-model: lmstudio/gemma-3-1b
+model: lmstudio/google/gemma-3-1b
 temperature: 0.0
 tools:
   read_file: true

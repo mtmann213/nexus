@@ -2,7 +2,7 @@
 name: lead-developer
 description: Verbatim coding and CLI execution.
 mode: subagent
-model: lmstudio/qwen/qwen3-coder-next
+model: lmstudio/qwen/qwen3.5-9b
 temperature: 0.2
 tools:
   read_file: true

@@ -2,7 +2,7 @@
 name: auditor
 description: High-precision RF math verification and logic review.
 mode: subagent
-model: lmstudio/phi-4
+model: lmstudio/microsoft/phi-4-reasoning-plus
 temperature: 0.1
 tools:
   read_file: true
