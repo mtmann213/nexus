@@ -41,10 +41,11 @@ docker run -d \
   --restart always \
   $IMAGE
 
-echo "----------------------------------------"
 echo "✅ DEPLOYMENT COMPLETE"
-echo "📍 Access your Command Center at: http://localhost:$PORT"
-echo "📱 To access from your phone/tablet: http://$(hostname -I | awk '{print $1}'):$PORT"
+echo "📍 Nexus Portal (Chat/Docs): http://localhost:$PORT"
+echo "📍 OpenCode Visual (Terminal Sync): http://localhost:3001"
+echo "📱 Mobile Access: http://$(hostname -I | awk '{print $1}'):$PORT"
 echo "----------------------------------------"
+echo "💡 To start Terminal Sync, run: opencode web --hostname 0.0.0.0 --port 3001"
 echo "💡 TIP: When you first log in, you can create a local admin account."
 echo "💡 Your 4-agent team from Phase 9 will be visible in the model dropdown!"
