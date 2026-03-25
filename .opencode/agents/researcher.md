@@ -5,7 +5,7 @@ model: lmstudio/qwen/qwen3.5-9b
 temperature: 0.1
 permission:
   read: allow
-  list_dir: true
+  skill: allow
 ---
 
 # Researcher Role
