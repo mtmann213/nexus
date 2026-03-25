@@ -17,5 +17,6 @@
   },
   "agentDirectory": ".opencode/agent",
   "defaultAgent": "dispatcher",
-  "autoRouting": true
+  "autoRouting": true,
+  "blackboardFile": "OPAL.md"
 }

@@ -33,5 +33,5 @@
 ---
 
 ## Shared Communication Protocol
-- **State File:** `CLAUDE.md` (Shared blackboard for agents).
+- **State File:** `OPAL.md` (Shared blackboard for agents).
 - **Inference Mode:** Use "Thinking/Reasoning" mode for Phi-4 and 35B-A3B; "Flash/Direct" for 9B and 1B.
