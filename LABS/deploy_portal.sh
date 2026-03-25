@@ -6,15 +6,10 @@
 echo "🏁 STARTING PHASE 10: PORTAL DEPLOYMENT 🏁"
 echo "----------------------------------------"
 
-# 1. Detect Windows Host IP (Bridge)
-echo "📡 Detecting Windows Host IP..."
-WINDOWS_IP=$(grep nameserver /etc/resolv.conf | awk '{print $2}')
-if [ -z "$WINDOWS_IP" ]; then
-    echo "❌ Error: Could not detect Windows IP. Falling back to localhost."
-    WINDOWS_IP="127.0.0.1"
-else
-    echo "✅ Windows detected at: $WINDOWS_IP"
-fi
+# 1. Fixed Windows Host IP
+echo "📡 Using Fixed Windows Host IP..."
+WINDOWS_IP="192.168.68.50"
+echo "✅ Windows targeted at: $WINDOWS_IP"
 
 # 2. Configuration
 PORT=3000
