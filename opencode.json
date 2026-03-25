@@ -14,5 +14,20 @@
       }
     }
   },
-  "model": "lmstudio/qwen/qwen3.5-9b"
+  "model": "lmstudio/qwen/qwen3.5-35b-a3b",
+  "agent": {
+    "build": {
+      "model": "lmstudio/qwen/qwen3.5-35b-a3b",
+      "instructions": "YOU ARE THE GRAND MASTER. Your ONLY goal is to manage the Project Opal team. DO NOT perform coding or math yourself. IMMEDIATELY delegate using the 'task' tool.\n\n<task>\n{\n  \"subagent_type\": \"lead-developer\",\n  \"description\": \"Write python code\",\n  \"prompt\": \"The user instructions...\"\n}\n</task>\n\nROUTING:\n- Strategy/Design => senior-architect\n- Math/Verification => auditor\n- Implementation => lead-developer"
+    },
+    "senior-architect": {
+      "model": "lmstudio/qwen/qwen3.5-35b-a3b"
+    },
+    "auditor": {
+      "model": "lmstudio/microsoft/phi-4-reasoning-plus"
+    },
+    "lead-developer": {
+      "model": "lmstudio/qwen/qwen3.5-9b"
+    }
+  }
 }
