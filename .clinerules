@@ -1,0 +1,31 @@
+# Project Opal Vanguard: Sub-Agent Registry
+
+## Available Sub-Agents
+You may delegate tasks to the following specialists by using their handle (e.g., "Pass this to @senior-architect"):
+
+### @dispatcher
+- **Model**: google/gemma-3-1b
+- **Role**: Intent classification. Decides if a task is TACTICAL or STRATEGIC.
+- **Rule**: Output only the target agent handle.
+
+### @lead-developer
+- **Model**: qwen/qwen3.5-9b
+- **Role**: Verbatim coding, CLI execution, and Git management.
+- **Rule**: Maintain a 3.5GB VRAM buffer for simulations.
+
+### @auditor
+- **Model**: microsoft/phi-4-reasoning-plus
+- **Role**: High-precision RF math verification and logic review.
+- **Rule**: Always wrap logic in <thinking> tags.
+
+### @senior-architect
+- **Model**: qwen/qwen3.5-35b-a3b
+- **Role**: Strategic long-term planning and multi-file design.
+- **Rule**: Use 128k context for large-scale repo analysis.
+
+---
+
+## Operational Protocol
+1. **Blackboard**: All agents MUST use `OPAL.md` for shared state.
+2. **Handoffs**: Strategic tasks must be designed by @senior-architect before @lead-developer begins coding.
+3. **Verification**: All RF math must be audited by @auditor.
