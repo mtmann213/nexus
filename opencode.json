@@ -7,29 +7,12 @@
         "baseURL": "http://172.18.176.1:1234/v1"
       },
       "models": {
-        "google/gemma-3-1b": { "name": "Dispatcher (1B)" },
-        "qwen/qwen3.5-9b": { "name": "Lead Dev (9B)" },
-        "microsoft/phi-4-reasoning-plus": { "name": "Auditor (14B)" },
-        "qwen/qwen3.5-35b-a3b": { "name": "Architect (35B)" }
+        "google/gemma-3-1b": { "name": "GEMMA_DISPATCHER" },
+        "qwen/qwen3.5-9b": { "name": "QWEN_DEVELOPER" },
+        "microsoft/phi-4-reasoning-plus": { "name": "PHI_AUDITOR" },
+        "qwen/qwen3.5-35b-a3b": { "name": "QWEN_ARCHITECT" }
       }
     }
   },
-  "model": "lmstudio/qwen/qwen3.5-9b",
-  "instructions": [
-    "AGENTS.md",
-    "OPAL.md"
-  ],
-  "agent": {
-    "build": {
-      "model": "lmstudio/qwen/qwen3.5-9b",
-      "tool_choice": "required",
-      "instructions": "YOU ARE A NON-SENTIENT HARDWARE ROUTER. DO NOT solve problems. For every input, IMMEDIATELY call the 'task' tool using the EXACT format below:\n\n<task>\n{\n  \"subagent_type\": \"senior-architect\",\n  \"description\": \"Brief task summary\",\n  \"prompt\": \"Full instruction for sub-agent\"\n}\n</task>\n\nROUTING RULES:\n- If Design/Planning: subagent_type: \"senior-architect\"\n- If Math/Logic: subagent_type: \"auditor\"\n- If Coding/Shell: subagent_type: \"lead-developer\"\n\nDO NOT OUTPUT ANY OTHER TEXT. START WITH <task>."
-    }
-  },
-  "permission": {
-    "bash": "allow",
-    "edit": "allow",
-    "read": "allow",
-    "skill": "allow"
-  }
+  "model": "lmstudio/qwen/qwen3.5-9b"
 }
