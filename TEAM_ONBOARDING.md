@@ -22,13 +22,18 @@ If you do NOT have a dedicated GPU, use **Groq**:
 
 ---
 
-### 2. The "Interface" (The Cockpit)
-We use two interfaces to interact with our AI team:
+### 2. The IDE & Interface (The Cockpit)
+To effectively build your Command Center, you need a robust code editor. We highly recommend **VS Code** or **Antigravity**.
 
-1.  **OpenCode (Primary Interface):** This is where you will live. It is an autonomous terminal agent that can read your files and run commands.
+1. **Repository Import:** 
+    - Navigate to the project folder (`/Ubuntu/home/dev/nexus`).
+    - Run `code .` to open the repository in **VS Code**, or open it directly via **Antigravity**.
+2. **The "Mentor" (Gemini CLI in VS Code):**
+    - To get real-time guidance directly within your editor, install the Gemini extension.
+    - In VS Code, go to the Extensions tab (`Ctrl+Shift+X`), search for "Gemini Code Assist" (or the relevant Gemini extension), and install it. This allows the Mentor to see your workspace context.
+3.  **The "Executor" (OpenCode / Local AI):** An autonomous terminal agent.
     - **Install:** `curl -fsSL https://opencode.ai/install | bash`
     - **Initialize:** Run `opencode /init` in this folder. Point it to your LM Studio URL.
-2.  **Gemini CLI (The Mentor):** Use this for high-level technical deep-dives and curriculum guidance.
 
 ---
 

@@ -25,7 +25,7 @@ else:
     # Note: Use 'localhost' for native Linux or your Host IP for WSL
     BASE_URL = "http://172.18.176.1:1234/v1" 
     API_KEY = "lm-studio"
-    MODEL_NAME = "qwen/qwen3.5-35b-a3b"
+    MODEL_NAME = "google/gemma-3-4b"
     EMBED_MODEL = "text-embedding-nomic-embed-text-v1.5"
     print("🏠 PROJECT NEXUS: Using LOCAL hardware (3080 Ti).")
 
