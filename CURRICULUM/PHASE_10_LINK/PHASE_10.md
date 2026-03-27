@@ -55,6 +55,11 @@ We specifically focus on interfaces that adapt to touch-screens, allowing you to
 #### What to expect:
 You will run a script that launches **Open WebUI** using Docker. You will then configure it to point to your LM Studio API. Finally, you will open your tablet's browser and log into your own private "Nexus Portal."
 
+#### Container Lifecycle (Shutdown Instructions):
+Because Docker elegantly deploys your Web Portal as a background daemon, it will persist indefinitely even if you close the terminal. Knowing how to actively kill a container is a critical DevOps skill. 
+To safely shut down the portal and free up your allocated system memory and network ports, you MUST run this specific terminal command:
+> `docker stop project-nexus-portal && docker rm project-nexus-portal`
+
 #### Generation Prompt (for the student):
 > "Write a bash script to deploy Open WebUI via Docker. The script should pull the latest image, map port 3000 to the host, and set the `OPENAI_API_BASE_URL` to point to the local LM Studio instance. Include a check to ensure the 3080 Ti drivers are visible to the container for GPU acceleration."
 

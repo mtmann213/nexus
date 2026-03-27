@@ -65,7 +65,7 @@ Project Nexus serves as a guided curriculum for engineers transitioning from bas
 * **Demystifying:** Instead of one massive, expensive AI, we use specialized small agents that collaborate by leaving notes on a shared whiteboard.
 * **Exploratory Prompts:**
   1. *"Acting as the Lead Developer, write a fast python script to a file. Then, swap to the Auditor persona and critique your own file."*
-  2. *"Read the `OPAL.md` blackboard and tell me the current state of our multi-agent task."*
+  2. *"Read the `STATE.md` blackboard and tell me the current state of our multi-agent task."*
 
 ### Phase 7: The Master (Skills & Core Routines)
 * **Starter Prompt:** *"Guide me through Phase 7."*

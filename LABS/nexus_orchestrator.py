@@ -1,16 +1,55 @@
-from config import client, MODEL_NAME
+from config import client, MODEL_NAME, TIMEOUT
 import os
 import re
-import time
 
-def get_agent_response(messages, max_tokens=4000, temperature=0.3):
-    """Sends a properly formatted message list and handles Reasoning Models."""
+# Project Root STATE file
+STATE_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "STATE.md")
+AGENTS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "AGENTS.md")
+
+def get_agent_model(tier_name):
+    """Parses AGENTS.md to find the exact model assigned to a given Tier."""
+    if not os.path.exists(AGENTS_FILE):
+        return MODEL_NAME
+        
+    with open(AGENTS_FILE, "r", encoding="utf-8") as f:
+        content = f.read()
+        
+    # Split content on the specific Tier header
+    tier_block = content.split(f"## [{tier_name}]")
+    if len(tier_block) > 1:
+        block = tier_block[1].split("## [")[0]  # Get content strictly for this tier
+        
+        # 1. Search for explicit - **Model:** line first
+        model_match = re.search(r"- \*\*Model:\*\* (.+)", block)
+        if model_match:
+            return model_match.group(1).strip()
+            
+        # 2. Fallback to parsing the parenthesis in the header line
+        title_line = block.split("\n")[0]
+        paren_match = re.search(r"\(([^)]+)\)", title_line)
+        if paren_match:
+            return paren_match.group(1).strip()
+            
+    return MODEL_NAME # Fallback to config if tier not found
+
+def get_agent_response(role_tier, system_instruction, user_content, max_tokens=4000, temperature=0.3):
+    """Sends a properly formatted message list with dynamically parsed model targets."""
+    
+    target_model = get_agent_model(role_tier)
+    print(f"🔌 [Orchestrator] Directing request to server model: {target_model}")
+    
     try:
+        messages = [
+            {"role": "system", "content": system_instruction},
+            {"role": "user", "content": user_content}
+        ]
+        
         response = client.chat.completions.create(
-            model=MODEL_NAME,
+            model=target_model,
             messages=messages,
             temperature=temperature,
-            max_tokens=max_tokens
+            max_tokens=max_tokens,
+            timeout=TIMEOUT
         )
         
         # Check for standard content
@@ -26,81 +65,84 @@ def get_agent_response(messages, max_tokens=4000, temperature=0.3):
             if reasoning:
                 return f"⚠️ Model spent all tokens thinking. Summary of thoughts: {reasoning[:200]}"
             return None
+            
         return content
+        
     except Exception as e:
         print(f"❌ API Error: {str(e)}")
         return None
 
-def get_research():
-    agents_md = "AGENTS.md"
-    # Use relative path if local, else absolute for standard environment
-    path = agents_md if os.path.exists(agents_md) else "/home/dev/nexus/AGENTS.md"
+def run_senior_architect(mission):
+    print("🏗️  [Tier 4: Senior Architect (Qwen 35B Sim)] drafting architecture...")
+    system_prompt = (
+        "You are the Tier 4 Senior Architect. You specialize in strategic long-term planning "
+        "and broad system design for RF algorithms. Focus on generating a high-level Python draft "
+        "for the requested architecture."
+    )
     
-    research_context = {"status": "Unknown", "last_run_id": "None", "design": "None"}
-
-    if not os.path.exists(path):
-        return research_context
-
-    with open(path, 'r') as f:
-        content = f.read()
-
-    # Robust regex to catch: - **Key**: Value OR - Key: Value
-    def extract(key):
-        match = re.search(rf"- (?:\*\*)?{key}(?:\*\*)?:\s*(.+)", content, re.IGNORECASE)
-        return match.group(1).strip() if match else "Unknown"
-
-    research_context["status"] = extract("Status")
-    research_context["last_run_id"] = extract("Last Run ID")
-    research_context["design"] = extract("Design")
+    draft = get_agent_response("Tier 4", system_prompt, mission, temperature=0.6)
     
-    return research_context
+    if not draft:
+        print("❌ CRITICAL: Senior Architect failed to respond.")
+        return False
+        
+    # Blackboard Protocol: Overwrite state with new session
+    with open(STATE_FILE, "w", encoding="utf-8") as f:
+        f.write(f"# Multi-Agent State Board\n\n## 1. Senior Architect Draft\n{draft}\n\n")
+    print(f"✅ Architect draft saved to Blackboard: {STATE_FILE}.")
+    return True
 
-def run_orchestration(mission):
-    run_id = f"REF-{int(time.time())}"
-    print(f"🌟 Mission: {mission}")
-
-    # --- PHASE 1: THE ARCHITECT ---
-    # Simplified: No complex context, just the mission.
-    print("\n🏗️  Architect is designing...")
-    design = get_agent_response([
-        {"role": "system", "content": "You are a Senior RF Engineer. Provide a concise Python/Numpy script. CODE ONLY."},
-        {"role": "user", "content": mission}
-    ], temperature=0.7)
+def run_auditor():
+    print("🧐 [Tier 3: Auditor (Phi-4 Sim)] reading blackboard and reviewing...")
     
-    if not design:
-        print("❌ CRITICAL: Architect failed to respond. Check LM Studio logs.")
-        return
+    # Blackboard Protocol: Read state
+    if not os.path.exists(STATE_FILE):
+        print(f"❌ CRITICAL: Blackboard file {STATE_FILE} not found.")
+        return False
+        
+    with open(STATE_FILE, "r", encoding="utf-8") as f:
+        current_state = f.read()
+        
+    system_prompt = (
+        "You are the Tier 3 Auditor. Your skill is complex mathematical verification and "
+        "logical debugging. Read the current architecture draft and provide a harsh, critical "
+        "review of its flaws. Use <thinking> tags to show your logic."
+    )
     
-    print("\n--- ARCHITECT'S PROPOSAL ---")
-    print(design[:300] + "...")
-
-    # --- PHASE 2: THE REVIEWER ---
-    print("\n🧐 Reviewer is analyzing...")
-    critique = get_agent_response([
-        {"role": "system", "content": "You are a strict Code Reviewer. Find 2 technical math errors in this code. Be brief."},
-        {"role": "user", "content": f"Code:\n{design}"}
-    ], temperature=0.1)
+    user_prompt = f"Review this draft from the blackboard:\n\n{current_state}"
+    critique = get_agent_response("Tier 3", system_prompt, user_prompt, temperature=0.1)
     
     if not critique:
-        print("❌ CRITICAL: Reviewer failed to respond.")
+        print("❌ CRITICAL: Auditor failed to respond.")
+        return False
+        
+    # Blackboard Protocol: Append critique
+    with open(STATE_FILE, "a", encoding="utf-8") as f:
+        f.write(f"## 2. Auditor Critique\n{critique}\n\n")
+    print(f"✅ Auditor critique appended to Blackboard: {STATE_FILE}.")
+    return True
+
+def run_eval():
+    print("🔍 Running Verification Layer (Evals)...")
+    if not os.path.exists(STATE_FILE):
+        print("❌ EVAL FAILED: Blackboard file missing.")
         return
-
-    print("\n--- CRITICAL FEEDBACK ---")
-    print(critique)
-
-    # --- PHASE 3: THE REVISION ---
-    print("\n🛠️  Architect is revising...")
-    final_output = get_agent_response([
-        {"role": "system", "content": "You are a Master Engineer. Rewrite the code to address the feedback."},
-        {"role": "user", "content": f"Feedback: {critique}\n\nProvide the final code."}
-    ], temperature=0.2, max_tokens=2000)
-    
-    return final_output
+        
+    with open(STATE_FILE, "r", encoding="utf-8") as f:
+        content = f.read()
+        
+    if "## 1. Senior Architect Draft" in content and "## 2. Auditor Critique" in content:
+        print("🎯 EVAL PASSED: Multi-Agent Council successfully utilized the Blackboard Protocol.")
+    else:
+        print("❌ EVAL FAILED: Blackboard state does not reflect expected multi-agent interaction.")
 
 if __name__ == "__main__":
-    mission = "Write a Python function to simulate a Rayleigh Fading channel for a 5G signal."
-    result = run_orchestration(mission)
-    print("\n🎯 FINAL SOLUTION:")
-    print("=" * 60)
-    print(result)
-    print("=" * 60)
+    business_logic_task = (
+        "Design the system architecture for an AI-driven RF anomaly detection module. "
+        "It needs to continuously monitor incoming IQ streams, detect interference, and log events."
+    )
+    
+    print(f"🌟 Mission: {business_logic_task}\n")
+    if run_senior_architect(business_logic_task):
+        if run_auditor():
+            run_eval()

@@ -35,7 +35,7 @@ To master the art of "Agency" by building it. Project Nexus rejects passive lear
 ## 🛠️ The Tech Stack
 *   **Intelligence:** Local Qwen 3.5 (9B/35B), Phi-4, and Gemma 3 models via **LM Studio**.
 *   **Interfaces:** OpenCode (Autonomous Terminal), Gemini CLI (Strategic Mentor), and Open WebUI (Visual Portal).
-*   **Protocols:** Model Context Protocol (MCP) and the **Opal Blackboard Protocol** (`OPAL.md`).
+*   **Protocols:** Model Context Protocol (MCP) and the **Nexus Blackboard Protocol** (`STATE.md`).
 *   **Hardware Optimization:** 4-bit KV Cache Quantization, Flash Attention, and tiered memory offloading.
 
 ---
@@ -43,7 +43,7 @@ To master the art of "Agency" by building it. Project Nexus rejects passive lear
 ## 🛡️ The Defensive Engineering Pillars
 The project codifies "Hardened AI" practices to handle the probabilistic nature of LLMs:
 1.  **JSON Hygiene:** Robust hunter-parsers to handle model noise.
-2.  **State Persistence:** Using neutral Markdown files (`OPAL.md`) as a "Source of Truth" across different AI tools.
+2.  **State Persistence:** Using neutral Markdown files (`STATE.md`) as a "Source of Truth" across different AI tools.
 3.  **VRAM Budgeting:** Precise compute allocation to ensure real-time performance on consumer GPUs (e.g., RTX 3080 Ti).
 4.  **Instruction Anchoring:** Strict system directives to prevent "Persona Drift" during long-running tasks.
 

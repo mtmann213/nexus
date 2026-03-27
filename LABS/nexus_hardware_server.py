@@ -14,11 +14,17 @@ async def handle_list_tools() -> list[types.Tool]:
     """List available hardware monitoring tools."""
     return [
         types.Tool(
-            name="get_gpu_status",
-            description="Get real-time VRAM and Power usage from the RTX 3080 Ti.",
+            name="get_hardware_status",
+            description="Get real-time VRAM or System RAM usage securely.",
             inputSchema={
                 "type": "object",
-                "properties": {},
+                "properties": {
+                    "hardware_model": {
+                        "type": "string",
+                        "description": "The target hardware. e.g. 'RTX 3080 Ti' or 'System RAM'"
+                    }
+                },
+                "required": ["hardware_model"]
             },
         )
     ]
@@ -27,23 +33,32 @@ async def handle_list_tools() -> list[types.Tool]:
 async def handle_call_tool(
     name: str, arguments: dict | None
 ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
-    """Execute the hardware monitor tool."""
-    if name == "get_gpu_status":
+    """Execute the hardware monitor tool inside the Sandbox."""
+    
+    if name == "get_hardware_status":
+        hardware = arguments.get("hardware_model", "") if arguments else ""
+        
+        # 🛡️ THE SANDBOX (Safe Schema Validation)
+        if hardware not in ["RTX 3080 Ti", "System RAM"]:
+            return [types.TextContent(type="text", text=f"🛑 Permission Denied: '{hardware}' is restricted and NOT in the Safe Schema.")]
+            
         try:
-            # Run nvidia-smi to get VRAM usage
-            cmd = "nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu --format=csv,nounits,noheader"
-            result = subprocess.check_output(cmd, shell=True).decode('utf-8').strip()
-            mem_used, mem_total, util = result.split(',')
-            
-            status_report = (
-                f"🚀 Hardware Status:\n"
-                f"📊 VRAM Usage: {mem_used}MB / {mem_total}MB\n"
-                f"🔥 GPU Utilization: {util}%"
-            )
-            
+            if hardware == "RTX 3080 Ti":
+                cmd = "nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu --format=csv,nounits,noheader"
+                result = subprocess.check_output(cmd, shell=True).decode('utf-8').strip()
+                mem_used, mem_total, util = result.split(',')
+                status_report = f"🚀 RTX 3080 Ti Status: {mem_used}MB / {mem_total}MB VRAM | {util}% Util"
+                
+            elif hardware == "System RAM":
+                cmd = "free -m | grep Mem"
+                result = subprocess.check_output(cmd, shell=True).decode('utf-8').split()
+                mem_total = result[1]
+                mem_used = result[2]
+                status_report = f"💻 System RAM Status: {mem_used}MB / {mem_total}MB Used"
+
             return [types.TextContent(type="text", text=status_report)]
         except Exception as e:
-            return [types.TextContent(type="text", text=f"❌ Error accessing GPU: {str(e)}")]
+            return [types.TextContent(type="text", text=f"❌ Error accessing Hardware: {str(e)}")]
     
     raise ValueError(f"Unknown tool: {name}")
 

@@ -1,51 +1,46 @@
 #!/bin/bash
+# Phase 10: Deploy Open WebUI Local Dashboard (Strict Docker Implementation)
+# Architecture: Docker Container bridging to Host LM Studio API
 
-# Phase 10: The Link (Local Web Portal)
-# This script deploys Open WebUI via Docker, optimized for WSL -> Windows LM Studio bridge.
+echo "🚀 NexOS Web Portal Initialization..."
 
-echo "🏁 STARTING PHASE 10: PORTAL DEPLOYMENT 🏁"
-echo "----------------------------------------"
-
-# 1. Fixed Windows Host IP
-echo "📡 Using Fixed Windows Host IP..."
-WINDOWS_IP="192.168.68.50"
-echo "✅ Windows targeted at: $WINDOWS_IP"
-
-# 2. Configuration
-PORT=3000
-IMAGE="ghcr.io/open-webui/open-webui:main"
-CONTAINER_NAME="nexus-portal"
-LM_STUDIO_URL="http://$WINDOWS_IP:1234/v1"
-
-echo "🛠️  Configuring Portal..."
-echo "🔗 Backend: $LM_STUDIO_URL"
-echo "🌐 Frontend: http://localhost:$PORT"
-
-# 3. Stop existing container if it exists
-if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
-    echo "🛑 Stopping existing nexus-portal..."
-    docker rm -f $CONTAINER_NAME > /dev/null
+# Pre-flight check
+if ! command -v docker &> /dev/null; then
+    echo "❌ ERROR: Docker is not installed or the Docker Desktop Daemon is not running locally!"
+    echo "Please open Docker Desktop on Windows, ensure it is running in the system tray, and try again."
+    exit 1
 fi
 
-# 4. Launch Open WebUI with GPU support
-# We map port 3000 and pass the LM Studio URL as the default OpenAI API base.
-echo "🚀 Launching Nexus Portal (Open WebUI)..."
+echo "📦 Pulling and Spinning up Open WebUI Docker Container [project-nexus-portal]..."
+
+# Deploys Open WebUI natively via Docker Container
+# Maps port 8080 inside the container to 3000 on your external network
+# Injects OPENAI_API_BASE_URL to bridge through the host-gateway to Windows LM Studio 
 
 docker run -d \
-  -p $PORT:8080 \
+  --name project-nexus-portal \
+  -p 3000:8080 \
   --add-host=host.docker.internal:host-gateway \
-  -e OPENAI_API_BASE_URL=$LM_STUDIO_URL \
-  -e OPENAI_API_KEY="lm-studio" \
-  -v nexus-webui:/app/backend/data \
-  --name $CONTAINER_NAME \
+  --gpus all \
+  -e OPENAI_API_BASE_URL="http://host.docker.internal:1234/v1" \
+  -v open-webui:/app/backend/data \
   --restart always \
-  $IMAGE
+  ghcr.io/open-webui/open-webui:main
 
-echo "✅ DEPLOYMENT COMPLETE"
-echo "📍 Nexus Portal (Chat/Docs): http://localhost:$PORT"
-echo "📍 OpenCode Visual (Terminal Sync): http://localhost:3001"
-echo "📱 Mobile Access: http://$(hostname -I | awk '{print $1}'):$PORT"
-echo "----------------------------------------"
-echo "💡 To start Terminal Sync, run: opencode web --hostname 0.0.0.0 --port 3001"
-echo "💡 TIP: When you first log in, you can create a local admin account."
-echo "💡 Your 4-agent team from Phase 9 will be visible in the model dropdown!"
+# Fetch Local IP for mobile access
+local_ip=$(hostname -I | awk '{print $1}')
+
+echo ""
+echo "✅ Docker Deployment Successful! The web portal is quietly running in the background."
+echo "--------------------------------------------------------"
+echo "📱 ACCESS YOUR COMMAND CENTER / WEB INTERFACE:"
+echo "🌐 Local Desktop Browser:    http://localhost:3000   (or http://127.0.0.1:3000)"
+echo "🌐 Mobile Phone Browser:     http://$local_ip:3000"
+echo "--------------------------------------------------------"
+echo "🛑 IMPORTANT: HOW TO SHUT DOWN THE DASHBOARD:"
+echo "Because Docker runs efficiently as a background service, it will stay alive even if you close this terminal."
+echo "To safely kill the portal and free up your system ports and RAM, simply run this exact command:"
+echo ""
+echo "    docker stop project-nexus-portal && docker rm project-nexus-portal"
+echo ""
+echo "💡 TIP: Open your desktop browser right now to ensure it can see the LM Studio models in the dropdown screen!"

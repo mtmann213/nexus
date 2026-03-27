@@ -1,81 +1,69 @@
-import subprocess
-import time
 import os
-from faster_whisper import WhisperModel
+import time
+import subprocess
+try:
+    from faster_whisper import WhisperModel
+except ImportError:
+    print("❌ faster-whisper not installed. Please run: pip install faster-whisper")
+    exit(1)
 
-# Phase 8: High-Speed Voice-to-Text Command
-# Goal: Capture your mic and transcribe it in < 1s for instant communication.
+AUDIO_FILE = "nexus_voice_buffer.wav"
 
-def get_hardware_tier():
-    """Detects available hardware to choose the best Whisper device."""
+def record_audio(duration=5, filename=AUDIO_FILE):
+    print(f"🎙️  Listening to internal Pulse loopback for {duration} seconds... Speak now!")
+    
+    # Using ffmpeg to record from the pulse audio source inside WSL
+    cmd = [
+        "ffmpeg",
+        "-y",               # Overwrite existing file unconditionally
+        "-f", "pulse",      # Force PulseAudio format
+        "-i", "default",    # Use default input device
+        "-t", str(duration),# Specify exact recording duration
+        filename
+    ]
+    
     try:
-        # Check if nvidia-smi exists and has a GPU
-        subprocess.run(["nvidia-smi"], capture_output=True, check=True)
-        print("🚀 GPU detected. Using CUDA acceleration.")
-        return "cuda", "float16"
-    except:
-        print("💻 No GPU detected (or missing drivers). Using CPU mode.")
-        return "cpu", "int8"
-
-def capture_mic(duration=5, output_file="mic_capture.wav"):
-    """Uses ffmpeg to pull audio from the WSL pulse source."""
-    print(f"🎙️  LISTENING ({duration}s)... Speak now.")
-    try:
-        # We pull from the default PulseAudio source (which bridges to Windows Mic)
-        cmd = [
-            "ffmpeg", "-y", "-f", "pulse", "-i", "default",
-            "-t", str(duration), "-ac", "1", "-ar", "16000", output_file
-        ]
-        # Silencing ffmpeg output for a cleaner interface
-        subprocess.run(cmd, check=True, capture_output=True)
+        # Mute ffmpeg's massive stdout blocks to keep the terminal clean
+        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+        print("✅ Recording complete.")
         return True
-    except Exception as e:
-        print(f"❌ Mic capture failed: {e}")
-        print("💡 TIP: Ensure PulseAudio is running and bridged from Windows.")
+    except subprocess.CalledProcessError:
+        print("❌ ffpmeg failed to record from PulseAudio. Ensure PulseAudio is bridged between your Windows Host and WSL.")
+        return False
+    except FileNotFoundError:
+        print("❌ ffmpeg not found in your system path. Please install via: sudo apt install ffmpeg")
         return False
 
-def transcribe_clip(file_path):
-    """Transcribes the captured clip using local Whisper."""
-    device, compute = get_hardware_tier()
+def transcribe_audio(filename=AUDIO_FILE):
+    print("🧠 Loading Whisper 'tiny' model strictly on CPU to protect VRAM...")
     
-    print(f"👂 Transcribing on {device.upper()}...")
+    # Force the transcription engine onto the CPU using fast int8 quantization
+    # This ensures your 3080 Ti doesn't crash if the main LLM is sitting active in VRAM!
+    model = WhisperModel("tiny", device="cpu", compute_type="int8")
+    
+    print("⏩ Transcribing...")
     start_time = time.time()
     
-    try:
-        model = WhisperModel("tiny", device=device, compute_type=compute)
-        segments, info = model.transcribe(file_path, beam_size=5)
-        
-        text = ""
-        for segment in segments:
-            text += segment.text + " "
-        
-        print(f"✅ Transcription complete in {time.time() - start_time:.2f}s")
-        return text.strip()
-    except Exception as e:
-        print(f"❌ Transcription error: {e}")
-        if device == "cuda":
-            print("🔄 Falling back to CPU mode...")
-            model = WhisperModel("tiny", device="cpu", compute_type="int8")
-            segments, info = model.transcribe(file_path, beam_size=5)
-            text = "".join([s.text for f in segments])
-            return text.strip()
-        return "Error in transcription."
-
-def run_voice_command():
-    print("🏁 Project Nexus Voice Interface")
-    print("-" * 30)
+    # Process the audio file
+    segments, info = model.transcribe(filename, beam_size=5)
     
-    if capture_mic():
-        text = transcribe_clip("mic_capture.wav")
-        print("\n📝 YOUR PROMPT:")
-        print("=" * 30)
-        print(text if text else "[No speech detected]")
-        print("=" * 30)
-        print("\n💡 TIP: Copy this text into your OpenCode or Gemini prompt!")
+    # generator to string
+    text = "".join([segment.text for segment in segments])
     
-    # Clean up
-    if os.path.exists("mic_capture.wav"):
-        os.remove("mic_capture.wav")
+    end_time = time.time()
+    latency = end_time - start_time
+    
+    print("\n" + "="*60)
+    print(f"🗣️  VOICE PROMPT DETECTED (Latency: {latency:.2f}s)")
+    print("="*60)
+    print(text.strip())
+    print("="*60 + "\n")
+    print("💡 TIP: Copy this text directly into your OpenCode or Gemini terminal!")
 
 if __name__ == "__main__":
-    run_voice_command()
+    if record_audio():
+        transcribe_audio()
+        
+    # Scrub the buffer block
+    if os.path.exists(AUDIO_FILE):
+        os.remove(AUDIO_FILE)

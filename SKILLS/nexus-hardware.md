@@ -34,3 +34,10 @@ start_idx = raw_output.find("{")
 end_idx = raw_output.rfind("}")
 clean_json = raw_output[start_idx:end_idx + 1]
 ```
+
+### 6. 5G Sionna Simulation VRAM Strategy
+When explicitly encountering a `ResourceExhaustedError` during a TensorFlow or Sionna 5G pipeline simulation, you MUST follow this mandatory 3-step procedural playbook:
+1. **Precision Downgrade:** Inspect the traceback to determine if the pipeline is running in `tf.float64` / `tf.complex128`. You must explicitly instruct the user to downgrade Sionna precision to `tf.complex64` via dtype overriding to save 50% memory immediately.
+2. **Dimension Scaling:** Locate the `batch` parameter in the tensor shape. You must instruct the user to strictly cut their batch size by exactly 50% (e.g., if 1024, suggest 512).
+3. **Dataset Optimization:** Suggest utilizing `tf.data.Dataset` mapping optimizations if caching is overflowing the GPU (e.g., recommend `.prefetch(tf.data.AUTOTUNE)`).
+**CRITICAL:** Do NOT hallucinate generic Python memory advice (like `gc.collect()`). You must provide exactly these 3 steps in your response.
